@@ -1,0 +1,144 @@
+{
+  "datasets": [
+    {
+      "attribution": "GeoNames postal codes and cities15000",
+      "bundled": true,
+      "category": "places",
+      "id": "us-zip-cities",
+      "license": "CC BY 4.0",
+      "recordCountEstimate": 41488,
+      "release": {
+        "compression": "gzip",
+        "downloadBytes": 1943410,
+        "downloadURL": "https://raw.githubusercontent.com/AM-Guru/SybilSight-DataSources/main/dist/us-zip-cities.sqlite3.gz",
+        "installedBytes": 6324224,
+        "publishedAt": "2026-08-06T21:22:31Z",
+        "releaseNotes": "Rebuilt 2026.08.06.",
+        "schemaVersion": 1,
+        "sha256": "5cae0a9fecc69d3fe80cd8ca648688243a03f14b6de91e74dc1bd7f72a5b0965",
+        "version": "2026.08.06"
+      },
+      "sourceURL": "https://www.geonames.org/",
+      "summary": "Every US ZIP code with its own place, county, state, time zone, and the largest city nearby.",
+      "symbolName": "mappin.and.ellipse",
+      "title": "US ZIP Codes & Cities"
+    },
+    {
+      "attribution": "Derived from the Wikimedia on-this-day selection",
+      "bundled": true,
+      "category": "calendar",
+      "id": "birthday-almanac",
+      "license": "CC BY-SA 4.0",
+      "recordCountEstimate": 366,
+      "release": {
+        "compression": "gzip",
+        "downloadBytes": 35621,
+        "downloadURL": "https://raw.githubusercontent.com/AM-Guru/SybilSight-DataSources/main/dist/birthday-almanac.sqlite3.gz",
+        "installedBytes": 114688,
+        "publishedAt": "2026-08-06T21:22:31Z",
+        "releaseNotes": "Rebuilt 2026.08.06.",
+        "schemaVersion": 1,
+        "sha256": "72d49b0b76cd0fc65401d15a9860c7550f9445d2110b29b81b6065dadc5cae63",
+        "version": "2026.08.06"
+      },
+      "sourceURL": "https://en.wikipedia.org/",
+      "summary": "The per-date extras behind birthday readings. Sign, stone, flower, Chinese zodiac, weekday and days alive are always computed on device \u2014 this adds the day's notable event.",
+      "symbolName": "gift",
+      "title": "Birthday Almanac"
+    },
+    {
+      "attribution": "Wikimedia on-this-day feed",
+      "bundled": false,
+      "category": "calendar",
+      "id": "on-this-day",
+      "license": "CC BY-SA 4.0",
+      "recordCountEstimate": 108830,
+      "release": {
+        "compression": "gzip",
+        "downloadBytes": 17736409,
+        "downloadURL": "https://raw.githubusercontent.com/AM-Guru/SybilSight-DataSources/main/dist/on-this-day.sqlite3.gz",
+        "installedBytes": 49070080,
+        "publishedAt": "2026-08-06T21:22:31Z",
+        "releaseNotes": "Rebuilt 2026.08.06.",
+        "schemaVersion": 1,
+        "sha256": "b8786b23710504e220e8e292d8f39138630f791ffb9dcc606415996cd3be1e5b",
+        "version": "2026.08.06"
+      },
+      "sourceURL": "https://en.wikipedia.org/",
+      "summary": "Notable events for every calendar day across the past 125 years, with the front-page selections ranked first.",
+      "symbolName": "calendar.badge.clock",
+      "title": "This Day in History"
+    },
+    {
+      "attribution": "Wikidata given-name and family-name items",
+      "bundled": false,
+      "category": "language",
+      "id": "name-meanings",
+      "license": "CC0 1.0",
+      "recordCountEstimate": 36754,
+      "release": {
+        "compression": "gzip",
+        "downloadBytes": 2078404,
+        "downloadURL": "https://raw.githubusercontent.com/AM-Guru/SybilSight-DataSources/main/dist/name-meanings.sqlite3.gz",
+        "installedBytes": 6373376,
+        "publishedAt": "2026-08-06T21:22:31Z",
+        "releaseNotes": "Rebuilt 2026.08.06.",
+        "schemaVersion": 1,
+        "sha256": "1269cd06111665406b91eaabe1b34b4ae69448184630086b3fb8015146a6fcf2",
+        "version": "2026.08.06"
+      },
+      "sourceURL": "https://www.wikidata.org/",
+      "summary": "Meaning and origin for the 50,000 most-borne first and family names.",
+      "symbolName": "character.book.closed.fill",
+      "title": "Name Meanings"
+    },
+    {
+      "attribution": "Wikidata P35 / P6 statements",
+      "bundled": false,
+      "category": "people",
+      "id": "world-leaders",
+      "license": "CC0 1.0",
+      "recordCountEstimate": 2817,
+      "release": {
+        "compression": "gzip",
+        "downloadBytes": 124247,
+        "downloadURL": "https://raw.githubusercontent.com/AM-Guru/SybilSight-DataSources/main/dist/world-leaders.sqlite3.gz",
+        "installedBytes": 425984,
+        "publishedAt": "2026-08-06T21:22:31Z",
+        "releaseNotes": "Rebuilt 2026.08.06.",
+        "schemaVersion": 1,
+        "sha256": "a156106bc996be32fe3d5d62e8da85bf4163f4f7ca87f74915db508b3a2dd1e8",
+        "version": "2026.08.06"
+      },
+      "sourceURL": "https://www.wikidata.org/",
+      "summary": "Heads of state and heads of government for every country and year. Transition years name every officeholder.",
+      "symbolName": "building.columns",
+      "title": "World Leaders by Year"
+    },
+    {
+      "attribution": "Wikidata facts with Wikipedia lead descriptions",
+      "bundled": false,
+      "category": "people",
+      "id": "celebrities",
+      "license": "CC0 1.0 / CC BY-SA 4.0",
+      "recordCountEstimate": 46612,
+      "release": {
+        "compression": "gzip",
+        "downloadBytes": 5768884,
+        "downloadURL": "https://raw.githubusercontent.com/AM-Guru/SybilSight-DataSources/main/dist/celebrities.sqlite3.gz",
+        "installedBytes": 13320192,
+        "publishedAt": "2026-08-06T21:22:31Z",
+        "releaseNotes": "Rebuilt 2026.08.06.",
+        "schemaVersion": 1,
+        "sha256": "2e9ff1e95bb6320adb9646e6e7c48f2426032aff7e0ea3352426c11bf4e904d4",
+        "version": "2026.08.06"
+      },
+      "sourceURL": "https://www.wikidata.org/",
+      "summary": "The 50,000 most notable people: birth and death dates, days alive, partner, residence, notable work, and awards.",
+      "symbolName": "star.circle",
+      "title": "Celebrities"
+    }
+  ],
+  "generatedAt": "2026-08-06T21:22:31Z",
+  "manifestVersion": 1
+}
