@@ -1,0 +1,10 @@
+{
+  "compression": "gzip",
+  "datasetId": "world-leaders",
+  "downloadBytes": 124247,
+  "fileName": "world-leaders.sqlite3.gz",
+  "installedBytes": 425984,
+  "schemaVersion": 1,
+  "sha256": "a156106bc996be32fe3d5d62e8da85bf4163f4f7ca87f74915db508b3a2dd1e8",
+  "version": "2026.08.06"
+}

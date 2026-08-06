@@ -1,0 +1,75 @@
+name: Rebuild and publish datasets
+
+# Manual by default. A dataset rebuild pulls multi-gigabyte upstream dumps and
+# rewrites published artefacts, so it should be an intentional act rather than
+# something a push triggers by accident.
+on:
+  workflow_dispatch:
+    inputs:
+      datasets:
+        description: >-
+          Space-separated dataset ids to rebuild, or "all".
+          Datasets not rebuilt keep their existing published entry.
+        required: true
+        default: us-zip-cities world-leaders
+  schedule:
+    # Monthly. Upstream sources change slowly and every run republishes bytes.
+    - cron: "0 4 1 * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # The Wikipedia and Wiktionary dumps take hours to fetch and parse.
+    timeout-minutes: 720
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: python3 -m pip install -r requirements.txt
+
+      # Upstream dumps dominate the runtime; a cache hit turns a six-hour job
+      # into a twenty-minute one.
+      - name: Restore upstream cache
+        uses: actions/cache@v4
+        with:
+          path: .cache
+          key: reference-data-cache-${{ github.run_month || 'monthly' }}
+          restore-keys: reference-data-cache-
+
+      - name: Build datasets
+        env:
+          DATASETS: ${{ github.event.inputs.datasets || 'all' }}
+        run: |
+          set -euo pipefail
+          if [ "$DATASETS" = "all" ]; then
+            selected="us-zip-cities world-leaders celebrities on-this-day birthday-almanac name-meanings"
+          else
+            selected="$DATASETS"
+          fi
+          for dataset in $selected; do
+            script="builders/build_$(echo "$dataset" | tr '-' '_').py"
+            echo "::group::$dataset"
+            python3 "$script"
+            echo "::endgroup::"
+          done
+
+      - name: Assemble and validate the manifest
+        run: |
+          python3 tools/build_catalog.py
+          python3 tools/validate_catalog.py
+
+      - name: Commit
+        run: |
+          git config user.name "sybilsight-data-bot"
+          git config user.email "i@am.guru"
+          git add dist manifest
+          if git diff --cached --quiet; then
+            echo "No dataset changed."
+            exit 0
+          fi
+          git commit -m "Rebuild datasets (${{ github.event.inputs.datasets || 'scheduled' }})"
+          git push

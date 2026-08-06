@@ -1,0 +1,10 @@
+{
+  "compression": "gzip",
+  "datasetId": "name-meanings",
+  "downloadBytes": 2078602,
+  "fileName": "name-meanings.sqlite3.gz",
+  "installedBytes": 6365184,
+  "schemaVersion": 1,
+  "sha256": "2d5cfbf1aa706800ae113038e66f995a29caf6c26626eec35e621cf7e24c495b",
+  "version": "2026.08.06"
+}

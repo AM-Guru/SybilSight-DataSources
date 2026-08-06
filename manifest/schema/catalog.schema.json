@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/AM-Guru/SybilSight-DataSources/main/manifest/schema/catalog.schema.json",
+  "title": "SybilSight reference-data catalog",
+  "description": "The document Sybil Sight and Sybil Terminal fetch to discover, download, and update on-device reference datasets. Decoded by ReferenceDataCatalogDocument in LocalPackages/ReferenceData.",
+  "type": "object",
+  "required": ["manifestVersion", "generatedAt", "datasets"],
+  "additionalProperties": false,
+  "properties": {
+    "manifestVersion": {
+      "type": "integer",
+      "const": 1,
+      "description": "Bumped only for a breaking change to this envelope, never for dataset content. A client that cannot read the envelope keeps whatever it already installed."
+    },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "datasets": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/dataset" }
+    }
+  },
+  "$defs": {
+    "dataset": {
+      "type": "object",
+      "required": [
+        "id", "title", "summary", "category", "attribution",
+        "license", "bundled", "recordCountEstimate", "release"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "description": "Stable identity. Also the container filename: <id>.sqlite3."
+        },
+        "title": { "type": "string", "minLength": 1 },
+        "summary": { "type": "string", "minLength": 1 },
+        "category": {
+          "enum": ["places", "people", "calendar", "language", "encyclopedia"]
+        },
+        "symbolName": {
+          "type": "string",
+          "description": "SF Symbol. Empty falls back to the category symbol."
+        },
+        "attribution": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Displayed verbatim. Required by the CC BY and CC BY-SA upstream licences."
+        },
+        "license": { "type": "string", "minLength": 1 },
+        "sourceURL": { "type": "string", "format": "uri" },
+        "bundled": {
+          "type": "boolean",
+          "description": "True when the app ships this dataset inside its bundle. A downloaded build still supersedes the bundled copy."
+        },
+        "recordCountEstimate": { "type": "integer", "minimum": 0 },
+        "release": { "$ref": "#/$defs/release" }
+      }
+    },
+    "release": {
+      "type": "object",
+      "required": [
+        "version", "schemaVersion", "downloadURL", "downloadBytes",
+        "installedBytes", "sha256", "compression", "publishedAt"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+(\\.[0-9]+)*$",
+          "description": "Dotted numeric, compared component-wise — 1.10 is newer than 1.9. Never compared as a string."
+        },
+        "schemaVersion": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Container layout. A client refuses a version it does not implement rather than mis-reading columns."
+        },
+        "downloadURL": { "type": "string", "format": "uri", "pattern": "^https://" },
+        "downloadBytes": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Transfer size. This is the number the cellular policy is applied to."
+        },
+        "installedBytes": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Post-decompression size, used for the free-space check."
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "Digest of the DOWNLOADED bytes exactly as transferred — verified before any CPU is spent decompressing them."
+        },
+        "compression": { "enum": ["none", "gzip", "lzfse"] },
+        "publishedAt": { "type": "string", "format": "date-time" },
+        "releaseNotes": { "type": "string" },
+        "minimumAppVersion": { "type": "string" }
+      }
+    }
+  }
+}

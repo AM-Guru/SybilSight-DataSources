@@ -1,0 +1,10 @@
+{
+  "compression": "gzip",
+  "datasetId": "on-this-day",
+  "downloadBytes": 17736409,
+  "fileName": "on-this-day.sqlite3.gz",
+  "installedBytes": 49070080,
+  "schemaVersion": 1,
+  "sha256": "b8786b23710504e220e8e292d8f39138630f791ffb9dcc606415996cd3be1e5b",
+  "version": "2026.08.06"
+}

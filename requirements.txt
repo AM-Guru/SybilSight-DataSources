@@ -1,0 +1,3 @@
+# Only the ZIP builder needs a third-party package; everything else uses the
+# standard library so a fresh checkout can build most datasets with no install.
+numpy>=1.26

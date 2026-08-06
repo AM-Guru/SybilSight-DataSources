@@ -1,0 +1,10 @@
+{
+  "compression": "gzip",
+  "datasetId": "us-zip-cities",
+  "downloadBytes": 1943410,
+  "fileName": "us-zip-cities.sqlite3.gz",
+  "installedBytes": 6324224,
+  "schemaVersion": 1,
+  "sha256": "5cae0a9fecc69d3fe80cd8ca648688243a03f14b6de91e74dc1bd7f72a5b0965",
+  "version": "2026.08.06"
+}
