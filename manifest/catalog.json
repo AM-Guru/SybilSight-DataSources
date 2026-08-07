@@ -215,8 +215,73 @@
       "summary": "Pi to 461 million places. This is the depth at which a full DDMMYYYY birthdate is 99% likely to appear \u2014 the shallower sets simply cannot answer it.",
       "symbolName": "number",
       "title": "Deep Digits \u2014 full birthdates"
+    },
+    {
+      "attribution": "Computed with binary-splitting Chudnovsky over GMP",
+      "bundled": false,
+      "category": "calendar",
+      "id": "constant-digits-9",
+      "license": "CC0 1.0",
+      "recordCountEstimate": 0,
+      "release": {
+        "compression": "gzip",
+        "downloadBytes": 1938050939,
+        "downloadURL": "https://github.com/AM-Guru/SybilSight-DataSources/releases/download/data-2026.08.07/constant-digits-9.part1.sqlite3.gz",
+        "installedBytes": 2304335872,
+        "parts": [
+          {
+            "downloadBytes": 420844412,
+            "downloadURL": "https://github.com/AM-Guru/SybilSight-DataSources/releases/download/data-2026.08.07/constant-digits-9.part1.sqlite3.gz",
+            "fileName": "constant-digits-9.part1.sqlite3.gz",
+            "index": 0,
+            "installedBytes": 500367360,
+            "sha256": "398f18ce63aa3142124984b6e27f244574bd151d7bf5e9ffb843edb4b76debda"
+          },
+          {
+            "downloadBytes": 420844666,
+            "downloadURL": "https://github.com/AM-Guru/SybilSight-DataSources/releases/download/data-2026.08.07/constant-digits-9.part2.sqlite3.gz",
+            "fileName": "constant-digits-9.part2.sqlite3.gz",
+            "index": 1,
+            "installedBytes": 500367360,
+            "sha256": "a8726daa1a8c10ef5c53a39de656c344206e42ad7fcbdbc09964e780a3907d56"
+          },
+          {
+            "downloadBytes": 420845904,
+            "downloadURL": "https://github.com/AM-Guru/SybilSight-DataSources/releases/download/data-2026.08.07/constant-digits-9.part3.sqlite3.gz",
+            "fileName": "constant-digits-9.part3.sqlite3.gz",
+            "index": 2,
+            "installedBytes": 500383744,
+            "sha256": "79a28176642a719ca0033b9bbc4d83d5817a6b99c8942886e47f2de0ee79473b"
+          },
+          {
+            "downloadBytes": 420846808,
+            "downloadURL": "https://github.com/AM-Guru/SybilSight-DataSources/releases/download/data-2026.08.07/constant-digits-9.part4.sqlite3.gz",
+            "fileName": "constant-digits-9.part4.sqlite3.gz",
+            "index": 3,
+            "installedBytes": 500383744,
+            "sha256": "551378772a54e96c363d7e18d4a973f37bd98389ff0c016fa0a7dff7f8c67275"
+          },
+          {
+            "downloadBytes": 254669149,
+            "downloadURL": "https://github.com/AM-Guru/SybilSight-DataSources/releases/download/data-2026.08.07/constant-digits-9.part5.sqlite3.gz",
+            "fileName": "constant-digits-9.part5.sqlite3.gz",
+            "index": 4,
+            "installedBytes": 302833664,
+            "sha256": "3e739a05f7b4adf27db4004ca858f77b5578c31312560b456c0cfdd78b8dfa45"
+          }
+        ],
+        "publishedAt": "2026-08-07T04:52:29Z",
+        "releaseNotes": "Rebuilt 2026.08.07.",
+        "schemaVersion": 2,
+        "sha256": "8c652721dfe5ddaed529c414b3cd86f63c1db142b989449526ff2c9ade89ca70",
+        "version": "2026.08.07"
+      },
+      "sourceURL": "https://github.com/AM-Guru/SybilSight-DataSources",
+      "summary": "Pi to 4.6 billion places, in parts. Settles any nine-digit run, and covers roughly a third of ten-digit ones. Wi-Fi and 5 GB of free space.",
+      "symbolName": "number",
+      "title": "Deep Digits \u2014 9-figure runs"
     }
   ],
-  "generatedAt": "2026-08-07T01:43:15Z",
+  "generatedAt": "2026-08-07T04:52:29Z",
   "manifestVersion": 1
 }

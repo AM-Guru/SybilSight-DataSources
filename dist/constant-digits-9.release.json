@@ -1,0 +1,44 @@
+{
+  "datasetId": "constant-digits-9",
+  "version": "2026.08.07",
+  "schemaVersion": 2,
+  "compression": "gzip",
+  "answersPatternDigits": 9,
+  "recordCount": 4605170185,
+  "parts": [
+    {
+      "fileName": "constant-digits-9.part1.sqlite3.gz",
+      "downloadBytes": 420844412,
+      "installedBytes": 500367360,
+      "sha256": "398f18ce63aa3142124984b6e27f244574bd151d7bf5e9ffb843edb4b76debda"
+    },
+    {
+      "fileName": "constant-digits-9.part2.sqlite3.gz",
+      "downloadBytes": 420844666,
+      "installedBytes": 500367360,
+      "sha256": "a8726daa1a8c10ef5c53a39de656c344206e42ad7fcbdbc09964e780a3907d56"
+    },
+    {
+      "fileName": "constant-digits-9.part3.sqlite3.gz",
+      "downloadBytes": 420845904,
+      "installedBytes": 500383744,
+      "sha256": "79a28176642a719ca0033b9bbc4d83d5817a6b99c8942886e47f2de0ee79473b"
+    },
+    {
+      "fileName": "constant-digits-9.part4.sqlite3.gz",
+      "downloadBytes": 420846808,
+      "installedBytes": 500383744,
+      "sha256": "551378772a54e96c363d7e18d4a973f37bd98389ff0c016fa0a7dff7f8c67275"
+    },
+    {
+      "fileName": "constant-digits-9.part5.sqlite3.gz",
+      "downloadBytes": 254669149,
+      "installedBytes": 302833664,
+      "sha256": "3e739a05f7b4adf27db4004ca858f77b5578c31312560b456c0cfdd78b8dfa45"
+    }
+  ],
+  "downloadBytes": 1938050939,
+  "installedBytes": 2304335872,
+  "sha256": "8c652721dfe5ddaed529c414b3cd86f63c1db142b989449526ff2c9ade89ca70",
+  "fileName": "constant-digits-9.part1.sqlite3.gz"
+}

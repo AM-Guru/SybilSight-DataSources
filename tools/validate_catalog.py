@@ -169,10 +169,53 @@ def check_dataset(entry: dict) -> None:
 
 
 def check_container(dataset_id: str) -> None:
-    container = BUILD / f"{dataset_id}.sqlite3"
-    if not container.exists():
+    # Multi-part datasets have no single container. Checking only the plain name
+    # made the structural verification SKIP them entirely — the largest and most
+    # expensive sets got the least checking, which is backwards.
+    containers = [BUILD / f"{dataset_id}.sqlite3"]
+    if not containers[0].exists():
+        containers = sorted(BUILD.glob(f"{dataset_id}.part*.sqlite3"))
+    if not containers:
         notes.append(f"{dataset_id}: no local container to structurally verify (not rebuilt here)")
         return
+    for container in containers:
+        check_one_container(dataset_id, container)
+    if len(containers) > 1:
+        check_part_continuity(dataset_id, containers)
+
+
+def check_part_continuity(dataset_id: str, containers: list[Path]) -> None:
+    """Parts must tile the decimal places with no gap and no overlap.
+
+    A hole here would make the reader stop early and report a shallower search
+    than it ran; an overlap would shift every position after the seam.
+    """
+    spans: dict[str, list[tuple[int, int]]] = {}
+    for container in containers:
+        connection = sqlite3.connect(f"file:{container}?mode=ro", uri=True)
+        try:
+            for name, start, count in connection.execute(
+                "SELECT name, part_start, part_digits FROM constant"
+            ):
+                spans.setdefault(name, []).append((start, count))
+        except sqlite3.Error as error:
+            fail(f"{dataset_id}: {container.name} has no readable constant table ({error})")
+        finally:
+            connection.close()
+
+    for name, ranges in spans.items():
+        expected = 1
+        for start, count in sorted(ranges):
+            if start != expected:
+                fail(
+                    f"{dataset_id}: {name} parts are not contiguous — expected place "
+                    f"{expected:,} next, got {start:,}"
+                )
+                break
+            expected += count
+
+
+def check_one_container(dataset_id: str, container: Path) -> None:
     connection = sqlite3.connect(f"file:{container}?mode=ro", uri=True)
     try:
         tables = {
@@ -183,10 +226,10 @@ def check_container(dataset_id: str) -> None:
         }
         missing = REQUIRED_TABLES.get(dataset_id, {"meta"}) - tables
         if missing:
-            fail(f"{dataset_id}: container is missing table(s) {sorted(missing)}")
+            fail(f"{container.name}: missing table(s) {sorted(missing)}")
         row = connection.execute("SELECT value FROM meta WHERE key='schema_version'").fetchone()
         if not row:
-            fail(f"{dataset_id}: container has no schema_version in meta")
+            fail(f"{container.name}: no schema_version in meta")
     finally:
         connection.close()
 
