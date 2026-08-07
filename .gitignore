@@ -3,3 +3,12 @@ build/
 __pycache__/
 *.pyc
 .DS_Store
+
+
+# Artefacts at or over GitHub's 100 MB blob limit. These are published as
+# Release assets by .github/workflows/publish.yml, and the manifest points at
+# the Release URL rather than raw. Committing them fails the push.
+dist/constant-digits-8.sqlite3.gz
+dist/constant-digits-9*.sqlite3.gz
+dist/wikipedia-en*.sqlite3.gz
+build/

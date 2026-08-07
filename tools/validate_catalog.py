@@ -30,6 +30,11 @@ REQUIRED_RELEASE_FIELDS = [
 VALID_CATEGORIES = {"places", "people", "calendar", "language", "encyclopedia"}
 VALID_COMPRESSION = {"none", "gzip", "lzfse"}
 
+# Mirrors ReferenceDatasetDescriptor.bundleCeilingBytes and GitHub's own limits.
+BUNDLE_CEILING = 20 * 1000 * 1000
+GITHUB_BLOB_LIMIT = 100 * 1000 * 1000
+GITHUB_ASSET_LIMIT = 2 * 1000 * 1000 * 1000
+
 # Mirrors ReferenceDatabase.requiredTables(for:). Keep in step.
 REQUIRED_TABLES = {
     "us-zip-cities": {"meta", "zip"},
@@ -39,6 +44,10 @@ REQUIRED_TABLES = {
     "world-leaders": {"meta", "leader", "country_alias"},
     "birthday-almanac": {"meta", "almanac"},
     "wikipedia-en": {"meta", "article", "article_fts"},
+    "constant-digits": {"meta", "constant", "digit_chunk"},
+    "constant-digits-7": {"meta", "constant", "digit_chunk"},
+    "constant-digits-8": {"meta", "constant", "digit_chunk"},
+    "constant-digits-9": {"meta", "constant", "digit_chunk"},
 }
 
 problems: list[str] = []
@@ -93,24 +102,70 @@ def check_dataset(entry: dict) -> None:
     if not url.startswith("https://"):
         fail(f"{dataset_id}: downloadURL must be https")
 
-    # The published artefact must actually exist and hash to the manifest value,
-    # or every install of this dataset fails integrity verification on device.
-    filename = url.rsplit("/", 1)[-1]
-    artefact = DIST / filename
-    if not artefact.exists():
-        fail(f"{dataset_id}: {artefact.relative_to(REPO_ROOT)} is not in dist/")
-        return
-    if artefact.stat().st_size != release["downloadBytes"]:
+    # A dataset over the ceiling that still claims to be bundled would send the
+    # app hunting inside its own binary for a file that is not there.
+    if entry.get("bundled") and release.get("installedBytes", 0) > BUNDLE_CEILING:
         fail(
-            f"{dataset_id}: downloadBytes is {release['downloadBytes']} but "
-            f"{filename} is {artefact.stat().st_size} bytes"
+            f"{dataset_id}: bundled=true but {release['installedBytes']:,} bytes installed "
+            f"is over the {BUNDLE_CEILING:,} ceiling"
         )
-    digest = hashlib.sha256()
-    with open(artefact, "rb") as handle:
-        for chunk in iter(lambda: handle.read(1 << 20), b""):
-            digest.update(chunk)
-    if digest.hexdigest() != release["sha256"].lower():
-        fail(f"{dataset_id}: sha256 does not match {filename}")
+
+    # Every part must exist and hash to the manifest value, or that install
+    # fails integrity verification on device.
+    parts = release.get("parts") or [{
+        "index": 0,
+        "fileName": url.rsplit("/", 1)[-1],
+        "downloadURL": url,
+        "downloadBytes": release.get("downloadBytes", 0),
+        "sha256": release.get("sha256", ""),
+    }]
+
+    seen_indices = set()
+    total = 0
+    for part in parts:
+        index = part.get("index", 0)
+        if index in seen_indices:
+            fail(f"{dataset_id}: duplicate part index {index}")
+        seen_indices.add(index)
+
+        part_url = str(part.get("downloadURL", ""))
+        size = part.get("downloadBytes", 0)
+        if size > GITHUB_ASSET_LIMIT:
+            fail(f"{dataset_id}: part {index} is {size:,} bytes, over GitHub's 2 GB asset limit")
+        # Anything over the blob limit cannot be served from raw — it cannot be
+        # committed at all. It has to be a Release asset.
+        if size >= GITHUB_BLOB_LIMIT and "raw.githubusercontent.com" in part_url:
+            fail(
+                f"{dataset_id}: part {index} is {size:,} bytes but is published from raw, "
+                f"which caps at {GITHUB_BLOB_LIMIT:,} — use a Release asset"
+            )
+        total += size
+
+        artefact = DIST / part["fileName"]
+        if not artefact.exists():
+            fail(f"{dataset_id}: {artefact.relative_to(REPO_ROOT)} is not in dist/")
+            continue
+        if artefact.stat().st_size != size:
+            fail(
+                f"{dataset_id}: part {index} downloadBytes is {size} but "
+                f"{part['fileName']} is {artefact.stat().st_size} bytes"
+            )
+        digest = hashlib.sha256()
+        with open(artefact, "rb") as handle:
+            for chunk in iter(lambda: handle.read(1 << 22), b""):
+                digest.update(chunk)
+        if digest.hexdigest() != str(part.get("sha256", "")).lower():
+            fail(f"{dataset_id}: sha256 does not match {part['fileName']}")
+
+    # Parts must be contiguous from 0, since they install in order and a hole
+    # would leave the reader searching across a gap.
+    if seen_indices and seen_indices != set(range(len(parts))):
+        fail(f"{dataset_id}: part indices {sorted(seen_indices)} are not 0..{len(parts) - 1}")
+    if len(parts) > 1 and total != release["downloadBytes"]:
+        fail(
+            f"{dataset_id}: parts total {total:,} bytes but downloadBytes says "
+            f"{release['downloadBytes']:,}"
+        )
 
 
 def check_container(dataset_id: str) -> None:

@@ -1,0 +1,20 @@
+{
+  "datasetId": "constant-digits-8",
+  "version": "2026.08.07",
+  "schemaVersion": 2,
+  "compression": "gzip",
+  "answersPatternDigits": 8,
+  "recordCount": 460517018,
+  "parts": [
+    {
+      "fileName": "constant-digits-8.sqlite3.gz",
+      "downloadBytes": 193795901,
+      "installedBytes": 230465536,
+      "sha256": "628c95e99d2d2778187c0eec1745d4b2b37283b33b1b167c83694efc435522db"
+    }
+  ],
+  "downloadBytes": 193795901,
+  "installedBytes": 230465536,
+  "sha256": "628c95e99d2d2778187c0eec1745d4b2b37283b33b1b167c83694efc435522db",
+  "fileName": "constant-digits-8.sqlite3.gz"
+}

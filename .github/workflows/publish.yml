@@ -46,14 +46,22 @@ jobs:
         run: |
           set -euo pipefail
           if [ "$DATASETS" = "all" ]; then
-            selected="us-zip-cities world-leaders celebrities on-this-day birthday-almanac name-meanings"
+            selected="us-zip-cities world-leaders celebrities on-this-day birthday-almanac name-meanings constant-digits"
           else
             selected="$DATASETS"
           fi
           for dataset in $selected; do
-            script="builders/build_$(echo "$dataset" | tr '-' '_').py"
             echo "::group::$dataset"
-            python3 "$script"
+            case "$dataset" in
+              # The constant tiers all come from one parameterised builder
+              # rather than a script each, since only the depth differs.
+              constant-digits|constant-digits-*)
+                python3 builders/build_constant_tiers.py "$dataset"
+                ;;
+              *)
+                python3 "builders/build_$(echo "$dataset" | tr '-' '_').py"
+                ;;
+            esac
             echo "::endgroup::"
           done
 
@@ -62,10 +70,50 @@ jobs:
           python3 tools/build_catalog.py
           python3 tools/validate_catalog.py
 
-      - name: Commit
+      # Anything at or over 100 MB cannot be committed — GitHub rejects the
+      # push outright. Those artefacts go to a Release, which allows 2 GB per
+      # asset, and the manifest already points at the Release URL for them.
+      - name: Publish large artefacts as a Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          set -euo pipefail
+          version="$(python3 -c "import json,pathlib; print(json.loads(pathlib.Path('manifest/catalog.json').read_text())['datasets'][0]['release']['version'])")"
+          tag="data-$version"
+
+          large=()
+          while IFS= read -r file; do large+=("$file"); done < <(
+            find dist -type f -size +99M | sort
+          )
+          if [ ${#large[@]} -eq 0 ]; then
+            echo "Nothing needs a Release."
+            exit 0
+          fi
+
+          echo "Publishing ${#large[@]} asset(s) to $tag"
+          gh release view "$tag" >/dev/null 2>&1 \
+            || gh release create "$tag" --title "Datasets $version" \
+                 --notes "Large dataset artefacts for manifest $version."
+          # --clobber so a rebuild of the same version replaces the asset rather
+          # than failing on a name collision.
+          gh release upload "$tag" "${large[@]}" --clobber
+
+      - name: Commit the manifest and the small artefacts
+        run: |
+          set -euo pipefail
           git config user.name "sybilsight-data-bot"
           git config user.email "i@am.guru"
+          # Large files are excluded by .gitignore; this is the belt-and-braces
+          # check, because a 200 MB blob that reaches `git add` fails the push
+          # after the whole build has already run.
+          oversized="$(find dist -type f -size +99M -not -name '*.release.json' | head -5)"
+          if [ -n "$oversized" ] && git check-ignore -q $oversized; then
+            echo "Large artefacts correctly ignored:"; echo "$oversized"
+          elif [ -n "$oversized" ]; then
+            echo "::error::These exceed GitHub's 100 MB blob limit and are not ignored:"
+            echo "$oversized"
+            exit 1
+          fi
           git add dist manifest
           if git diff --cached --quiet; then
             echo "No dataset changed."

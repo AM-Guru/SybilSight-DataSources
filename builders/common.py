@@ -47,6 +47,7 @@ SCHEMA_VERSIONS = {
     "world-leaders": 1,
     "birthday-almanac": 1,
     "wikipedia-en": 1,
+    "constant-digits": 1,
 }
 
 

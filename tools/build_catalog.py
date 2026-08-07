@@ -20,7 +20,32 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 DIST_DIR = REPO_ROOT / "dist"
 MANIFEST_PATH = REPO_ROOT / "manifest" / "catalog.json"
 
-RELEASE_BASE = "https://raw.githubusercontent.com/AM-Guru/SybilSight-DataSources/main/dist"
+# Files under 100 MB can live in the repo and be served from raw. Anything
+# larger CANNOT: GitHub rejects blobs over 100 MB outright, and raw has the same
+# ceiling. Those ship as Release assets instead, which allow up to 2 GB each —
+# which is also why the deep tiers are split into parts rather than one file.
+RAW_BASE = "https://raw.githubusercontent.com/AM-Guru/SybilSight-DataSources/main/dist"
+RELEASE_ASSET_BASE = "https://github.com/AM-Guru/SybilSight-DataSources/releases/download"
+
+# The hard limits we are publishing against.
+GITHUB_BLOB_LIMIT = 100 * 1000 * 1000
+GITHUB_ASSET_LIMIT = 2 * 1000 * 1000 * 1000
+
+# Anything heavier than this is never bundled into the app, whatever the
+# descriptor says. Mirrors ReferenceDatasetDescriptor.bundleCeilingBytes.
+BUNDLE_CEILING = 20 * 1000 * 1000
+
+
+def asset_url(file_name: str, version: str) -> str:
+    """Where a published artefact is actually fetched from."""
+    return f"{RELEASE_ASSET_BASE}/data-{version}/{file_name}"
+
+
+def download_url(file_name: str, size: int, version: str) -> str:
+    return (
+        f"{RAW_BASE}/{file_name}" if size < GITHUB_BLOB_LIMIT
+        else asset_url(file_name, version)
+    )
 
 MANIFEST_VERSION = 1
 
@@ -88,6 +113,46 @@ DESCRIPTORS = {
         "sourceURL": "https://www.wikidata.org/",
         "bundled": False,
     },
+    "constant-digits": {
+        "title": "Constant Digits",
+        "summary": "Five million places each of pi and e, a million each of the golden ratio and the small roots. Ships with the app and settles any six-digit run — every DDMMYY date.",
+        "category": "calendar",
+        "symbolName": "number",
+        "attribution": "Computed with binary-splitting Chudnovsky over GMP",
+        "license": "CC0 1.0",
+        "sourceURL": "https://github.com/AM-Guru/SybilSight-DataSources",
+        "bundled": True,
+    },
+    "constant-digits-7": {
+        "title": "Deep Digits — 7-figure runs",
+        "summary": "Pi and e to 46 million places each. Settles any seven-digit run, such as a date with a single-digit day or month.",
+        "category": "calendar",
+        "symbolName": "number",
+        "attribution": "Computed with binary-splitting Chudnovsky over GMP",
+        "license": "CC0 1.0",
+        "sourceURL": "https://github.com/AM-Guru/SybilSight-DataSources",
+        "bundled": False,
+    },
+    "constant-digits-8": {
+        "title": "Deep Digits — full birthdates",
+        "summary": "Pi to 461 million places. This is the depth at which a full DDMMYYYY birthdate is 99% likely to appear — the shallower sets simply cannot answer it.",
+        "category": "calendar",
+        "symbolName": "number",
+        "attribution": "Computed with binary-splitting Chudnovsky over GMP",
+        "license": "CC0 1.0",
+        "sourceURL": "https://github.com/AM-Guru/SybilSight-DataSources",
+        "bundled": False,
+    },
+    "constant-digits-9": {
+        "title": "Deep Digits — 9-figure runs",
+        "summary": "Pi to 4.6 billion places, in parts. Settles any nine-digit run, and covers roughly a third of ten-digit ones. Wi-Fi and 5 GB of free space.",
+        "category": "calendar",
+        "symbolName": "number",
+        "attribution": "Computed with binary-splitting Chudnovsky over GMP",
+        "license": "CC0 1.0",
+        "sourceURL": "https://github.com/AM-Guru/SybilSight-DataSources",
+        "bundled": False,
+    },
     "wikipedia-en": {
         "title": "Offline Wikipedia (English)",
         "summary": "Lead extracts for every English Wikipedia article, with offline full-text search. Large — Wi-Fi recommended.",
@@ -102,7 +167,9 @@ DESCRIPTORS = {
 
 ORDER = [
     "us-zip-cities", "birthday-almanac", "on-this-day", "name-meanings",
-    "world-leaders", "celebrities", "wikipedia-en",
+    "world-leaders", "celebrities", "constant-digits",
+    "constant-digits-7", "constant-digits-8", "constant-digits-9",
+    "wikipedia-en",
 ]
 
 
@@ -154,6 +221,43 @@ def build() -> None:
             continue
 
         release = json.loads(release_path.read_text())
+        version = release["version"]
+
+        parts = release.get("parts") or [{
+            "fileName": release["fileName"],
+            "downloadBytes": release["downloadBytes"],
+            "installedBytes": release["installedBytes"],
+            "sha256": release["sha256"],
+        }]
+        for part in parts:
+            if part["downloadBytes"] > GITHUB_ASSET_LIMIT:
+                raise SystemExit(
+                    f"{dataset_id}: part {part['fileName']} is "
+                    f"{part['downloadBytes']:,} bytes, over GitHub's 2 GB asset "
+                    f"limit — raise the split count in build_constant_tiers.py"
+                )
+        emitted_parts = [
+            {
+                "index": index,
+                "fileName": part["fileName"],
+                "downloadURL": download_url(part["fileName"], part["downloadBytes"], version),
+                "downloadBytes": part["downloadBytes"],
+                "installedBytes": part["installedBytes"],
+                "sha256": part["sha256"],
+            }
+            for index, part in enumerate(parts)
+        ]
+
+        # Size decides this, not the descriptor. A dataset that outgrew the
+        # ceiling and kept `bundled: True` would send the app looking inside its
+        # own binary for a file that is not there.
+        bundled = descriptor["bundled"] and release["installedBytes"] <= BUNDLE_CEILING
+        if descriptor["bundled"] and not bundled:
+            print(
+                f"  {dataset_id}: {release['installedBytes']:,} bytes installed is over the "
+                f"{BUNDLE_CEILING:,} bundle ceiling — publishing as an optional download"
+            )
+
         entry = {
             "id": dataset_id,
             "title": descriptor["title"],
@@ -163,18 +267,19 @@ def build() -> None:
             "attribution": descriptor["attribution"],
             "license": descriptor["license"],
             "sourceURL": descriptor["sourceURL"],
-            "bundled": descriptor["bundled"],
+            "bundled": bundled,
             "recordCountEstimate": counts.get(dataset_id, 0),
             "release": {
                 "version": release["version"],
                 "schemaVersion": release["schemaVersion"],
-                "downloadURL": f"{RELEASE_BASE}/{release['fileName']}",
+                "downloadURL": emitted_parts[0]["downloadURL"],
                 "downloadBytes": release["downloadBytes"],
                 "installedBytes": release["installedBytes"],
                 "sha256": release["sha256"],
                 "compression": release["compression"],
                 "publishedAt": now,
                 "releaseNotes": f"Rebuilt {release['version']}.",
+                "parts": emitted_parts if len(emitted_parts) > 1 else [],
             },
         }
         # Do not churn publishedAt when the bytes are identical — the app keys

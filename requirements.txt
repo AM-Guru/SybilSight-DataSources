@@ -1,3 +1,7 @@
-# Only the ZIP builder needs a third-party package; everything else uses the
-# standard library so a fresh checkout can build most datasets with no install.
+# The ZIP builder needs numpy; the deep constant tiers need GMP.
+#
+# gmpy2 is not optional for those: the pure-Python binary splitting is ~n^2,
+# which is 97 s at a million digits and about eleven DAYS at a hundred million.
+# GMP is quasi-linear and does 461 million in twelve minutes.
 numpy>=1.26
+gmpy2>=2.2
