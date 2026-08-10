@@ -1,0 +1,48 @@
+{
+  "catalogURL": "https://library.kiwix.org/catalog/v2/entries",
+  "language": "eng",
+  "archives": [
+    {
+      "project": "wikipedia",
+      "name": "wikipedia_en_all",
+      "flavors": ["mini", "nopic", "maxi"],
+      "title": "Wikipedia (English)"
+    },
+    {
+      "project": "wiktionary",
+      "name": "wiktionary_en_all",
+      "flavors": ["nopic"],
+      "title": "Wiktionary (English)"
+    },
+    {
+      "project": "wikisource",
+      "name": "wikisource_en_all",
+      "flavors": ["nopic", "maxi"],
+      "title": "Wikisource (English)"
+    },
+    {
+      "project": "wikibooks",
+      "name": "wikibooks_en_all",
+      "flavors": ["nopic", "maxi"],
+      "title": "Wikibooks (English)"
+    },
+    {
+      "project": "wikiversity",
+      "name": "wikiversity_en_all",
+      "flavors": ["nopic", "maxi"],
+      "title": "Wikiversity (English)"
+    },
+    {
+      "project": "wikivoyage",
+      "name": "wikivoyage_en_all",
+      "flavors": ["nopic", "maxi"],
+      "title": "Wikivoyage (English)"
+    },
+    {
+      "project": "wikiquote",
+      "name": "wikiquote_en_all",
+      "flavors": ["nopic", "maxi"],
+      "title": "Wikiquote (English)"
+    }
+  ]
+}

@@ -29,6 +29,7 @@ REQUIRED_RELEASE_FIELDS = [
 ]
 VALID_CATEGORIES = {"places", "people", "calendar", "language", "encyclopedia"}
 VALID_COMPRESSION = {"none", "gzip", "lzfse"}
+VALID_STORAGE = {"sqlite", "zim"}
 
 # Mirrors ReferenceDatasetDescriptor.bundleCeilingBytes and GitHub's own limits.
 BUNDLE_CEILING = 20 * 1000 * 1000
@@ -80,6 +81,9 @@ def check_dataset(entry: dict) -> None:
             fail(f"{dataset_id}: missing '{field}'")
     if entry.get("category") not in VALID_CATEGORIES:
         fail(f"{dataset_id}: category '{entry.get('category')}' is not one the app decodes")
+    storage = entry.get("storageKind", "sqlite")
+    if storage not in VALID_STORAGE:
+        fail(f"{dataset_id}: storageKind '{storage}' is unsupported")
 
     release = entry.get("release", {})
     for field in REQUIRED_RELEASE_FIELDS:
@@ -101,6 +105,23 @@ def check_dataset(entry: dict) -> None:
     url = str(release.get("downloadURL", ""))
     if not url.startswith("https://"):
         fail(f"{dataset_id}: downloadURL must be https")
+    if storage == "zim":
+        archive = entry.get("externalArchive")
+        if not isinstance(archive, dict):
+            fail(f"{dataset_id}: ZIM entries require externalArchive metadata")
+        else:
+            for field in (
+                "provider", "upstreamID", "catalogURL", "language", "project",
+                "flavor", "upstreamUpdatedAt",
+            ):
+                if field not in archive:
+                    fail(f"{dataset_id}: externalArchive is missing '{field}'")
+        if release.get("compression") != "none":
+            fail(f"{dataset_id}: ZIM entries must use compression=none")
+        if not url.startswith("https://download.kiwix.org/zim/"):
+            fail(f"{dataset_id}: ZIM downloadURL must point to official download.kiwix.org")
+        if release.get("parts"):
+            fail(f"{dataset_id}: split ZIM archives are not supported")
 
     # A dataset over the ceiling that still claims to be bundled would send the
     # app hunting inside its own binary for a file that is not there.
@@ -130,7 +151,7 @@ def check_dataset(entry: dict) -> None:
 
         part_url = str(part.get("downloadURL", ""))
         size = part.get("downloadBytes", 0)
-        if size > GITHUB_ASSET_LIMIT:
+        if storage == "sqlite" and size > GITHUB_ASSET_LIMIT:
             fail(f"{dataset_id}: part {index} is {size:,} bytes, over GitHub's 2 GB asset limit")
         # Anything over the blob limit cannot be served from raw — it cannot be
         # committed at all. It has to be a Release asset.
@@ -140,6 +161,9 @@ def check_dataset(entry: dict) -> None:
                 f"which caps at {GITHUB_BLOB_LIMIT:,} — use a Release asset"
             )
         total += size
+
+        if storage == "zim":
+            continue
 
         artefact = DIST / part["fileName"]
         if not artefact.exists():
@@ -238,7 +262,7 @@ def main() -> int:
     document = check_manifest()
     for entry in document.get("datasets", []):
         check_dataset(entry)
-        if entry.get("id"):
+        if entry.get("id") and entry.get("storageKind", "sqlite") == "sqlite":
             check_container(entry["id"])
 
     for note in notes:

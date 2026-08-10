@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.amguru.sybilsight.kiwix-catalog-sync</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/bin/python3</string>
+    <string>__SYBILSIGHT_DATASOURCES_REPOSITORY__/tools/sync_kiwix_archives.py</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>__SYBILSIGHT_DATASOURCES_REPOSITORY__</string>
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>3</integer>
+    <key>Minute</key>
+    <integer>15</integer>
+  </dict>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>ProcessType</key>
+  <string>Background</string>
+  <key>StandardOutPath</key>
+  <string>__SYBILSIGHT_DATASOURCES_REPOSITORY__/.cache/kiwix-sync.log</string>
+  <key>StandardErrorPath</key>
+  <string>__SYBILSIGHT_DATASOURCES_REPOSITORY__/.cache/kiwix-sync-error.log</string>
+</dict>
+</plist>

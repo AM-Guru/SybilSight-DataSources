@@ -1,287 +1,6 @@
 {
   "datasets": [
     {
-      "attribution": "GeoNames postal codes and cities15000",
-      "bundled": true,
-      "category": "places",
-      "id": "us-zip-cities",
-      "license": "CC BY 4.0",
-      "recordCountEstimate": 41488,
-      "release": {
-        "compression": "gzip",
-        "downloadBytes": 1943410,
-        "downloadURL": "https://raw.githubusercontent.com/AM-Guru/SybilSight-DataSources/main/dist/us-zip-cities.sqlite3.gz",
-        "installedBytes": 6324224,
-        "parts": [],
-        "publishedAt": "2026-08-06T21:22:31Z",
-        "releaseNotes": "Rebuilt 2026.08.06.",
-        "schemaVersion": 1,
-        "sha256": "5cae0a9fecc69d3fe80cd8ca648688243a03f14b6de91e74dc1bd7f72a5b0965",
-        "version": "2026.08.06"
-      },
-      "sourceURL": "https://www.geonames.org/",
-      "summary": "Every US ZIP code with its own place, county, state, time zone, and the largest city nearby.",
-      "symbolName": "mappin.and.ellipse",
-      "title": "US ZIP Codes & Cities"
-    },
-    {
-      "attribution": "Derived from the Wikimedia on-this-day selection",
-      "bundled": true,
-      "category": "calendar",
-      "id": "birthday-almanac",
-      "license": "CC BY-SA 4.0",
-      "recordCountEstimate": 366,
-      "release": {
-        "compression": "gzip",
-        "downloadBytes": 35621,
-        "downloadURL": "https://raw.githubusercontent.com/AM-Guru/SybilSight-DataSources/main/dist/birthday-almanac.sqlite3.gz",
-        "installedBytes": 114688,
-        "parts": [],
-        "publishedAt": "2026-08-06T21:22:31Z",
-        "releaseNotes": "Rebuilt 2026.08.06.",
-        "schemaVersion": 1,
-        "sha256": "72d49b0b76cd0fc65401d15a9860c7550f9445d2110b29b81b6065dadc5cae63",
-        "version": "2026.08.06"
-      },
-      "sourceURL": "https://en.wikipedia.org/",
-      "summary": "The per-date extras behind birthday readings. Sign, stone, flower, Chinese zodiac, weekday and days alive are always computed on device \u2014 this adds the day's notable event.",
-      "symbolName": "gift",
-      "title": "Birthday Almanac"
-    },
-    {
-      "attribution": "Wikimedia on-this-day feed",
-      "bundled": false,
-      "category": "calendar",
-      "id": "on-this-day",
-      "license": "CC BY-SA 4.0",
-      "recordCountEstimate": 108830,
-      "release": {
-        "compression": "gzip",
-        "downloadBytes": 17736409,
-        "downloadURL": "https://raw.githubusercontent.com/AM-Guru/SybilSight-DataSources/main/dist/on-this-day.sqlite3.gz",
-        "installedBytes": 49070080,
-        "parts": [],
-        "publishedAt": "2026-08-06T21:22:31Z",
-        "releaseNotes": "Rebuilt 2026.08.06.",
-        "schemaVersion": 1,
-        "sha256": "b8786b23710504e220e8e292d8f39138630f791ffb9dcc606415996cd3be1e5b",
-        "version": "2026.08.06"
-      },
-      "sourceURL": "https://en.wikipedia.org/",
-      "summary": "Notable events for every calendar day across the past 125 years, with the front-page selections ranked first.",
-      "symbolName": "calendar.badge.clock",
-      "title": "This Day in History"
-    },
-    {
-      "attribution": "Wikidata given-name and family-name items",
-      "bundled": false,
-      "category": "language",
-      "id": "name-meanings",
-      "license": "CC0 1.0",
-      "recordCountEstimate": 36754,
-      "release": {
-        "compression": "gzip",
-        "downloadBytes": 2078404,
-        "downloadURL": "https://raw.githubusercontent.com/AM-Guru/SybilSight-DataSources/main/dist/name-meanings.sqlite3.gz",
-        "installedBytes": 6373376,
-        "parts": [],
-        "publishedAt": "2026-08-06T21:22:31Z",
-        "releaseNotes": "Rebuilt 2026.08.06.",
-        "schemaVersion": 1,
-        "sha256": "1269cd06111665406b91eaabe1b34b4ae69448184630086b3fb8015146a6fcf2",
-        "version": "2026.08.06"
-      },
-      "sourceURL": "https://www.wikidata.org/",
-      "summary": "Meaning and origin for the 50,000 most-borne first and family names.",
-      "symbolName": "character.book.closed.fill",
-      "title": "Name Meanings"
-    },
-    {
-      "attribution": "Wikidata P35 / P6 statements",
-      "bundled": false,
-      "category": "people",
-      "id": "world-leaders",
-      "license": "CC0 1.0",
-      "recordCountEstimate": 2817,
-      "release": {
-        "compression": "gzip",
-        "downloadBytes": 124247,
-        "downloadURL": "https://raw.githubusercontent.com/AM-Guru/SybilSight-DataSources/main/dist/world-leaders.sqlite3.gz",
-        "installedBytes": 425984,
-        "parts": [],
-        "publishedAt": "2026-08-06T21:22:31Z",
-        "releaseNotes": "Rebuilt 2026.08.06.",
-        "schemaVersion": 1,
-        "sha256": "a156106bc996be32fe3d5d62e8da85bf4163f4f7ca87f74915db508b3a2dd1e8",
-        "version": "2026.08.06"
-      },
-      "sourceURL": "https://www.wikidata.org/",
-      "summary": "Heads of state and heads of government for every country and year. Transition years name every officeholder.",
-      "symbolName": "building.columns",
-      "title": "World Leaders by Year"
-    },
-    {
-      "attribution": "Wikidata facts with Wikipedia lead descriptions",
-      "bundled": false,
-      "category": "people",
-      "id": "celebrities",
-      "license": "CC0 1.0 / CC BY-SA 4.0",
-      "recordCountEstimate": 46612,
-      "release": {
-        "compression": "gzip",
-        "downloadBytes": 5768884,
-        "downloadURL": "https://raw.githubusercontent.com/AM-Guru/SybilSight-DataSources/main/dist/celebrities.sqlite3.gz",
-        "installedBytes": 13320192,
-        "parts": [],
-        "publishedAt": "2026-08-06T21:22:31Z",
-        "releaseNotes": "Rebuilt 2026.08.06.",
-        "schemaVersion": 1,
-        "sha256": "2e9ff1e95bb6320adb9646e6e7c48f2426032aff7e0ea3352426c11bf4e904d4",
-        "version": "2026.08.06"
-      },
-      "sourceURL": "https://www.wikidata.org/",
-      "summary": "The 50,000 most notable people: birth and death dates, days alive, partner, residence, notable work, and awards.",
-      "symbolName": "star.circle",
-      "title": "Celebrities"
-    },
-    {
-      "attribution": "Computed with binary-splitting Chudnovsky over GMP",
-      "bundled": true,
-      "category": "calendar",
-      "id": "constant-digits",
-      "license": "CC0 1.0",
-      "recordCountEstimate": 14000000,
-      "release": {
-        "compression": "gzip",
-        "downloadBytes": 5892897,
-        "downloadURL": "https://raw.githubusercontent.com/AM-Guru/SybilSight-DataSources/main/dist/constant-digits.sqlite3.gz",
-        "installedBytes": 7077888,
-        "parts": [],
-        "publishedAt": "2026-08-07T01:42:36Z",
-        "releaseNotes": "Rebuilt 2026.08.07.",
-        "schemaVersion": 2,
-        "sha256": "969da6b1b87ee09aef38ef49c55d36679d440e602e22934e3e48aaef1a5fc0a5",
-        "version": "2026.08.07"
-      },
-      "sourceURL": "https://github.com/AM-Guru/SybilSight-DataSources",
-      "summary": "Five million places each of pi and e, a million each of the golden ratio and the small roots. Ships with the app and settles any six-digit run \u2014 every DDMMYY date.",
-      "symbolName": "number",
-      "title": "Constant Digits"
-    },
-    {
-      "attribution": "Computed with binary-splitting Chudnovsky over GMP",
-      "bundled": false,
-      "category": "calendar",
-      "id": "constant-digits-7",
-      "license": "CC0 1.0",
-      "recordCountEstimate": 92103402,
-      "release": {
-        "compression": "gzip",
-        "downloadBytes": 38759959,
-        "downloadURL": "https://raw.githubusercontent.com/AM-Guru/SybilSight-DataSources/main/dist/constant-digits-7.sqlite3.gz",
-        "installedBytes": 46145536,
-        "parts": [],
-        "publishedAt": "2026-08-07T01:42:36Z",
-        "releaseNotes": "Rebuilt 2026.08.07.",
-        "schemaVersion": 2,
-        "sha256": "2a149d5579337b24b70ced720894a2f209f2917b777311da96a753c16612e1b5",
-        "version": "2026.08.07"
-      },
-      "sourceURL": "https://github.com/AM-Guru/SybilSight-DataSources",
-      "summary": "Pi and e to 46 million places each. Settles any seven-digit run, such as a date with a single-digit day or month.",
-      "symbolName": "number",
-      "title": "Deep Digits \u2014 7-figure runs"
-    },
-    {
-      "attribution": "Computed with binary-splitting Chudnovsky over GMP",
-      "bundled": false,
-      "category": "calendar",
-      "id": "constant-digits-8",
-      "license": "CC0 1.0",
-      "recordCountEstimate": 460517018,
-      "release": {
-        "compression": "gzip",
-        "downloadBytes": 193795901,
-        "downloadURL": "https://github.com/AM-Guru/SybilSight-DataSources/releases/download/data-2026.08.07/constant-digits-8.sqlite3.gz",
-        "installedBytes": 230465536,
-        "parts": [],
-        "publishedAt": "2026-08-07T01:42:36Z",
-        "releaseNotes": "Rebuilt 2026.08.07.",
-        "schemaVersion": 2,
-        "sha256": "628c95e99d2d2778187c0eec1745d4b2b37283b33b1b167c83694efc435522db",
-        "version": "2026.08.07"
-      },
-      "sourceURL": "https://github.com/AM-Guru/SybilSight-DataSources",
-      "summary": "Pi to 461 million places. This is the depth at which a full DDMMYYYY birthdate is 99% likely to appear \u2014 the shallower sets simply cannot answer it.",
-      "symbolName": "number",
-      "title": "Deep Digits \u2014 full birthdates"
-    },
-    {
-      "attribution": "Computed with binary-splitting Chudnovsky over GMP",
-      "bundled": false,
-      "category": "calendar",
-      "id": "constant-digits-9",
-      "license": "CC0 1.0",
-      "recordCountEstimate": 0,
-      "release": {
-        "compression": "gzip",
-        "downloadBytes": 1938050939,
-        "downloadURL": "https://github.com/AM-Guru/SybilSight-DataSources/releases/download/data-2026.08.07/constant-digits-9.part1.sqlite3.gz",
-        "installedBytes": 2304335872,
-        "parts": [
-          {
-            "downloadBytes": 420844412,
-            "downloadURL": "https://github.com/AM-Guru/SybilSight-DataSources/releases/download/data-2026.08.07/constant-digits-9.part1.sqlite3.gz",
-            "fileName": "constant-digits-9.part1.sqlite3.gz",
-            "index": 0,
-            "installedBytes": 500367360,
-            "sha256": "398f18ce63aa3142124984b6e27f244574bd151d7bf5e9ffb843edb4b76debda"
-          },
-          {
-            "downloadBytes": 420844666,
-            "downloadURL": "https://github.com/AM-Guru/SybilSight-DataSources/releases/download/data-2026.08.07/constant-digits-9.part2.sqlite3.gz",
-            "fileName": "constant-digits-9.part2.sqlite3.gz",
-            "index": 1,
-            "installedBytes": 500367360,
-            "sha256": "a8726daa1a8c10ef5c53a39de656c344206e42ad7fcbdbc09964e780a3907d56"
-          },
-          {
-            "downloadBytes": 420845904,
-            "downloadURL": "https://github.com/AM-Guru/SybilSight-DataSources/releases/download/data-2026.08.07/constant-digits-9.part3.sqlite3.gz",
-            "fileName": "constant-digits-9.part3.sqlite3.gz",
-            "index": 2,
-            "installedBytes": 500383744,
-            "sha256": "79a28176642a719ca0033b9bbc4d83d5817a6b99c8942886e47f2de0ee79473b"
-          },
-          {
-            "downloadBytes": 420846808,
-            "downloadURL": "https://github.com/AM-Guru/SybilSight-DataSources/releases/download/data-2026.08.07/constant-digits-9.part4.sqlite3.gz",
-            "fileName": "constant-digits-9.part4.sqlite3.gz",
-            "index": 3,
-            "installedBytes": 500383744,
-            "sha256": "551378772a54e96c363d7e18d4a973f37bd98389ff0c016fa0a7dff7f8c67275"
-          },
-          {
-            "downloadBytes": 254669149,
-            "downloadURL": "https://github.com/AM-Guru/SybilSight-DataSources/releases/download/data-2026.08.07/constant-digits-9.part5.sqlite3.gz",
-            "fileName": "constant-digits-9.part5.sqlite3.gz",
-            "index": 4,
-            "installedBytes": 302833664,
-            "sha256": "3e739a05f7b4adf27db4004ca858f77b5578c31312560b456c0cfdd78b8dfa45"
-          }
-        ],
-        "publishedAt": "2026-08-07T04:52:29Z",
-        "releaseNotes": "Rebuilt 2026.08.07.",
-        "schemaVersion": 2,
-        "sha256": "8c652721dfe5ddaed529c414b3cd86f63c1db142b989449526ff2c9ade89ca70",
-        "version": "2026.08.07"
-      },
-      "sourceURL": "https://github.com/AM-Guru/SybilSight-DataSources",
-      "summary": "Pi to 4.6 billion places, in parts. Settles any nine-digit run, and covers roughly a third of ten-digit ones. Wi-Fi and 5 GB of free space.",
-      "symbolName": "number",
-      "title": "Deep Digits \u2014 9-figure runs"
-    },
-    {
       "attribution": "Wikibooks; packaged by openZIM and distributed by Kiwix",
       "bundled": false,
       "category": "encyclopedia",
@@ -314,7 +33,7 @@
       "storageKind": "zim",
       "summary": "The open-content textbooks collection Official Kiwix ZIM archive stored for offline knowledge use.",
       "symbolName": "books.vertical.fill",
-      "title": "Wikibooks (English) \u2014 No pictures"
+      "title": "Wikibooks (English) — No pictures"
     },
     {
       "attribution": "Wikibooks; packaged by openZIM and distributed by Kiwix",
@@ -349,7 +68,7 @@
       "storageKind": "zim",
       "summary": "The open-content textbooks collection Official Kiwix ZIM archive stored for offline knowledge use.",
       "symbolName": "books.vertical.fill",
-      "title": "Wikibooks (English) \u2014 With media"
+      "title": "Wikibooks (English) — With media"
     },
     {
       "attribution": "Wikipedia; packaged by openZIM and distributed by Kiwix",
@@ -384,7 +103,7 @@
       "storageKind": "zim",
       "summary": "The free encyclopedia Official Kiwix ZIM archive stored for offline knowledge use.",
       "symbolName": "books.vertical.fill",
-      "title": "Wikipedia (English) \u2014 Mini"
+      "title": "Wikipedia (English) — Mini"
     },
     {
       "attribution": "Wikipedia; packaged by openZIM and distributed by Kiwix",
@@ -419,7 +138,7 @@
       "storageKind": "zim",
       "summary": "The free encyclopedia Official Kiwix ZIM archive stored for offline knowledge use.",
       "symbolName": "books.vertical.fill",
-      "title": "Wikipedia (English) \u2014 No pictures"
+      "title": "Wikipedia (English) — No pictures"
     },
     {
       "attribution": "Wikipedia; packaged by openZIM and distributed by Kiwix",
@@ -454,7 +173,7 @@
       "storageKind": "zim",
       "summary": "The free encyclopedia Official Kiwix ZIM archive stored for offline knowledge use.",
       "symbolName": "books.vertical.fill",
-      "title": "Wikipedia (English) \u2014 With media"
+      "title": "Wikipedia (English) — With media"
     },
     {
       "attribution": "Wikiquote; packaged by openZIM and distributed by Kiwix",
@@ -489,7 +208,7 @@
       "storageKind": "zim",
       "summary": "An Offline Version of Wikiquote in English Language Official Kiwix ZIM archive stored for offline knowledge use.",
       "symbolName": "books.vertical.fill",
-      "title": "Wikiquote (English) \u2014 No pictures"
+      "title": "Wikiquote (English) — No pictures"
     },
     {
       "attribution": "Wikiquote; packaged by openZIM and distributed by Kiwix",
@@ -524,7 +243,7 @@
       "storageKind": "zim",
       "summary": "An Offline Version of Wikiquote in English Language Official Kiwix ZIM archive stored for offline knowledge use.",
       "symbolName": "books.vertical.fill",
-      "title": "Wikiquote (English) \u2014 With media"
+      "title": "Wikiquote (English) — With media"
     },
     {
       "attribution": "Wikisource; packaged by openZIM and distributed by Kiwix",
@@ -559,7 +278,7 @@
       "storageKind": "zim",
       "summary": "Wikisource is an library of public domain texts Official Kiwix ZIM archive stored for offline knowledge use.",
       "symbolName": "books.vertical.fill",
-      "title": "Wikisource (English) \u2014 No pictures"
+      "title": "Wikisource (English) — No pictures"
     },
     {
       "attribution": "Wikisource; packaged by openZIM and distributed by Kiwix",
@@ -594,7 +313,7 @@
       "storageKind": "zim",
       "summary": "Wikisource is an library of public domain texts Official Kiwix ZIM archive stored for offline knowledge use.",
       "symbolName": "books.vertical.fill",
-      "title": "Wikisource (English) \u2014 With media"
+      "title": "Wikisource (English) — With media"
     },
     {
       "attribution": "Wikiversity; packaged by openZIM and distributed by Kiwix",
@@ -629,7 +348,7 @@
       "storageKind": "zim",
       "summary": "Wikiversity offers tutorials and other materials for the fostering of learning. Official Kiwix ZIM archive stored for offline knowledge use.",
       "symbolName": "books.vertical.fill",
-      "title": "Wikiversity (English) \u2014 No pictures"
+      "title": "Wikiversity (English) — No pictures"
     },
     {
       "attribution": "Wikiversity; packaged by openZIM and distributed by Kiwix",
@@ -664,7 +383,7 @@
       "storageKind": "zim",
       "summary": "Wikiversity offers tutorials and other materials for the fostering of learning. Official Kiwix ZIM archive stored for offline knowledge use.",
       "symbolName": "books.vertical.fill",
-      "title": "Wikiversity (English) \u2014 With media"
+      "title": "Wikiversity (English) — With media"
     },
     {
       "attribution": "Wikivoyage; packaged by openZIM and distributed by Kiwix",
@@ -699,7 +418,7 @@
       "storageKind": "zim",
       "summary": "The collaborative travel guide Official Kiwix ZIM archive stored for offline knowledge use.",
       "symbolName": "books.vertical.fill",
-      "title": "Wikivoyage (English) \u2014 No pictures"
+      "title": "Wikivoyage (English) — No pictures"
     },
     {
       "attribution": "Wikivoyage; packaged by openZIM and distributed by Kiwix",
@@ -734,7 +453,7 @@
       "storageKind": "zim",
       "summary": "The collaborative travel guide Official Kiwix ZIM archive stored for offline knowledge use.",
       "symbolName": "books.vertical.fill",
-      "title": "Wikivoyage (English) \u2014 With media"
+      "title": "Wikivoyage (English) — With media"
     },
     {
       "attribution": "Wiktionary; packaged by openZIM and distributed by Kiwix",
@@ -769,9 +488,7 @@
       "storageKind": "zim",
       "summary": "The largest dictionary on the web. Official Kiwix ZIM archive stored for offline knowledge use.",
       "symbolName": "books.vertical.fill",
-      "title": "Wiktionary (English) \u2014 No pictures"
+      "title": "Wiktionary (English) — No pictures"
     }
-  ],
-  "generatedAt": "2026-08-10T01:06:19Z",
-  "manifestVersion": 1
+  ]
 }

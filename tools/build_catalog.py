@@ -19,6 +19,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DIST_DIR = REPO_ROOT / "dist"
 MANIFEST_PATH = REPO_ROOT / "manifest" / "catalog.json"
+KIWIX_ARCHIVES_PATH = REPO_ROOT / "manifest" / "kiwix-archives.json"
 
 # Files under 100 MB can live in the repo and be served from raw. Anything
 # larger CANNOT: GitHub rejects blobs over 100 MB outright, and raw has the same
@@ -202,6 +203,17 @@ def record_counts() -> dict[str, int]:
     return counts
 
 
+def external_archive_entries() -> list[dict]:
+    """Pointer-only datasets maintained by their official upstream catalog."""
+    if not KIWIX_ARCHIVES_PATH.exists():
+        return []
+    document = json.loads(KIWIX_ARCHIVES_PATH.read_text())
+    entries = document.get("datasets", [])
+    if not isinstance(entries, list):
+        raise SystemExit(f"{KIWIX_ARCHIVES_PATH}: datasets must be an array")
+    return entries
+
+
 def build() -> None:
     existing = load_existing()
     counts = record_counts()
@@ -291,6 +303,14 @@ def build() -> None:
             entry["release"]["version"] = previous["release"]["version"]
             entry["release"]["releaseNotes"] = previous["release"].get("releaseNotes", "")
         datasets.append(entry)
+
+    external = external_archive_entries()
+    existing_ids = {entry["id"] for entry in datasets}
+    for entry in external:
+        if entry.get("id") in existing_ids:
+            raise SystemExit(f"duplicate external archive id: {entry.get('id')}")
+        datasets.append(entry)
+        existing_ids.add(entry.get("id"))
 
     document = {
         "manifestVersion": MANIFEST_VERSION,

@@ -30,7 +30,7 @@
         "id": {
           "type": "string",
           "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
-          "description": "Stable identity. Also the container filename: <id>.sqlite3."
+          "description": "Stable identity. Also the installed basename for SQLite or ZIM storage."
         },
         "title": { "type": "string", "minLength": 1 },
         "summary": { "type": "string", "minLength": 1 },
@@ -53,7 +53,30 @@
           "description": "True when the app ships this dataset inside its bundle. A downloaded build still supersedes the bundled copy."
         },
         "recordCountEstimate": { "type": "integer", "minimum": 0 },
+        "storageKind": {
+          "enum": ["sqlite", "zim"],
+          "description": "Defaults to sqlite when omitted for backward compatibility."
+        },
+        "externalArchive": { "$ref": "#/$defs/externalArchive" },
         "release": { "$ref": "#/$defs/release" }
+      }
+    },
+    "externalArchive": {
+      "type": "object",
+      "required": [
+        "provider", "upstreamID", "catalogURL", "language", "project",
+        "flavor", "upstreamUpdatedAt"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "provider": { "type": "string", "minLength": 1 },
+        "upstreamID": { "type": "string", "minLength": 1 },
+        "catalogURL": { "type": "string", "format": "uri", "pattern": "^https://" },
+        "metadataURL": { "type": "string", "format": "uri", "pattern": "^https://" },
+        "language": { "type": "string", "minLength": 1 },
+        "project": { "type": "string", "minLength": 1 },
+        "flavor": { "type": "string" },
+        "upstreamUpdatedAt": { "type": "string", "format": "date-time" }
       }
     },
     "release": {

@@ -5,7 +5,9 @@ the Sybil Terminal Mac companion.
 
 Everything here is derived from openly licensed sources — GeoNames, Wikidata,
 Wikipedia, and Wiktionary — packaged as SQLite containers and published with a
-manifest the app reads to offer downloads and updates.
+manifest the app reads to offer downloads and updates. The same catalog also
+carries pointer-only entries for official Kiwix/OpenZIM archives. Those ZIM
+files stay on Kiwix infrastructure; this repository never mirrors them.
 
 **Nothing in this repository is proprietary Sybil Sight content.** No routines,
 no scripts, no performance material. It is reference data and the code that
@@ -24,6 +26,7 @@ builds it.
 | `celebrities` | Notable people: birth/death, partner, residence, notable work | 46,612 | 13.3 MB | 5.8 MB |
 | `on-this-day` | Notable events for every calendar day, 125 years deep | 108,000 | 49 MB | 17.7 MB |
 | `wikipedia-en` | Offline English Wikipedia lead extracts with full-text search | ~6.9 M | multi-GB | multi-GB |
+| `kiwix-*` | Official Wikipedia, Wiktionary, Wikisource, Wikibooks, Wikiversity, Wikivoyage, and Wikiquote ZIM archives | Upstream | 0.2–124 GB | Direct from Kiwix |
 
 Sizes are from the current build; the manifest is authoritative.
 
@@ -49,8 +52,11 @@ folded into the app's own licence.
 
 ```
 manifest/catalog.json     the document the app fetches
+manifest/kiwix-archives.json generated pointers to official Kiwix ZIM files
+manifest/kiwix-selection.json curated projects/languages/flavours to follow
 builders/                 one script per dataset
 tools/build_catalog.py    assembles the manifest from dist/
+tools/sync_kiwix_archives.py refreshes OPDS + Metalink pointers and hashes
 tools/validate_catalog.py checks the manifest against the app's contract
 build/                    generated .sqlite3 containers (gitignored)
 dist/                     generated .sqlite3.gz + per-release JSON (published)
@@ -80,6 +86,31 @@ transform does not re-download gigabytes.
 Datasets not rebuilt keep their existing published entry, so refreshing one does
 not retract the others.
 
+### Official Kiwix archive pointers
+
+`tools/sync_kiwix_archives.py` reads Kiwix's official OPDS catalog, follows the
+official Metalink for each selected ZIM, and records the exact byte size and
+SHA-256. It then rebuilds `manifest/catalog.json`. It does not download a ZIM.
+
+```bash
+python3 tools/sync_kiwix_archives.py
+python3 tools/validate_catalog.py
+```
+
+The generated entry keeps the OPDS UUID, project, language, flavour, Metalink
+URL, upstream update date, and a direct `https://download.kiwix.org/zim/...`
+pointer. SybilSight therefore learns that an installed archive is stale by the
+same normal version comparison it uses for its native SQLite datasets.
+
+For a daily local check, copy
+`launchd/com.amguru.sybilsight.kiwix-catalog-sync.plist.example` to
+`~/Library/LaunchAgents/`, replace `__SYBILSIGHT_DATASOURCES_REPOSITORY__` with
+this repository's absolute path, and load it with `launchctl bootstrap` for the
+current GUI user. The job writes its last machine-readable result to
+`.cache/kiwix-sync-report.json`; changed pointers remain ordinary Git changes
+for review and publication. The repository does not install the LaunchAgent
+automatically.
+
 ### Where the queries run
 
 `builders/wikidata.py` uses [QLever](https://qlever.dev/api/wikidata) rather than
@@ -91,7 +122,7 @@ official endpoint and returns in seconds on QLever, over the same data.
 
 ## The container contract
 
-Every dataset is one SQLite file named `<dataset-id>.sqlite3` carrying:
+Native datasets are SQLite files named `<dataset-id>.sqlite3` carrying:
 
 - a `meta` table of key/value strings, including `schema_version`
 - the tables listed in `ReferenceDatabase.requiredTables(for:)` on the Swift side
@@ -106,6 +137,12 @@ the right schema.
 `ReferenceDatasetSchema.supportedVersions` in
 `LocalPackages/ReferenceData/Sources/ReferenceDataKit/Manifest/ReferenceDataset.swift`
 are the two halves of that contract. Bump both together.
+
+Pointer-backed archives instead use `storageKind: "zim"`,
+`compression: "none"`, and an `externalArchive` metadata block. The app streams
+the official file to disk, verifies the Metalink SHA-256 and ZIM magic header,
+then atomically adopts `<dataset-id>.zim`. `ReferenceDataKit` exposes that URL
+to a ZIM-capable reader; it never passes the archive to SQLite.
 
 ### Key normalisation
 
