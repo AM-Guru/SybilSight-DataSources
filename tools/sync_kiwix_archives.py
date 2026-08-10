@@ -86,9 +86,7 @@ def stable_id(name: str, flavor: str) -> str:
 
 
 def flavor_label(flavor: str) -> str:
-    return {"mini": "Mini", "nopic": "No pictures", "maxi": "With media"}.get(
-        flavor, flavor.title() or "Standard"
-    )
+    return {"mini": "Mini"}.get(flavor, flavor.title() or "Standard")
 
 
 def load_entries(catalog_url: str, language: str, project: str) -> list[ET.Element]:
@@ -125,7 +123,11 @@ def build_descriptor(selection: dict, language: str, entry: ET.Element) -> dict:
     if not author:
         author = selection["title"].split(" (")[0]
     summary = text(entry, "summary")
-    title = f"{selection['title']} — {flavor_label(flavor)}"
+    title = (
+        selection["title"]
+        if flavor == "nopic"
+        else f"{selection['title']} — {flavor_label(flavor)}"
+    )
     upstream_id = text(entry, "id").removeprefix("urn:uuid:")
     article_count = int(text(entry, "articleCount") or 0)
 

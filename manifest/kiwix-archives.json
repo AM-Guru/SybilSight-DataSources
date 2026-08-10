@@ -33,42 +33,7 @@
       "storageKind": "zim",
       "summary": "The open-content textbooks collection Official Kiwix ZIM archive stored for offline knowledge use.",
       "symbolName": "books.vertical.fill",
-      "title": "Wikibooks (English) — No pictures"
-    },
-    {
-      "attribution": "Wikibooks; packaged by openZIM and distributed by Kiwix",
-      "bundled": false,
-      "category": "encyclopedia",
-      "externalArchive": {
-        "catalogURL": "https://library.kiwix.org/",
-        "flavor": "maxi",
-        "language": "eng",
-        "metadataURL": "https://lb.download.kiwix.org/zim/wikibooks/wikibooks_en_all_maxi_2026-04.zim.meta4",
-        "project": "wikibooks",
-        "provider": "Kiwix/openZIM",
-        "upstreamID": "3af31496-dba2-1022-3b55-e39469019c35",
-        "upstreamUpdatedAt": "2026-04-27T00:00:00Z"
-      },
-      "id": "kiwix-wikibooks-en-all-maxi",
-      "license": "Upstream Wikimedia content and media licenses; see archive metadata",
-      "recordCountEstimate": 118571,
-      "release": {
-        "compression": "none",
-        "downloadBytes": 6177865115,
-        "downloadURL": "https://download.kiwix.org/zim/wikibooks/wikibooks_en_all_maxi_2026-04.zim",
-        "installedBytes": 6177865115,
-        "parts": [],
-        "publishedAt": "2026-04-27T00:00:00Z",
-        "releaseNotes": "Kiwix upstream archive updated 2026-04-27.",
-        "schemaVersion": 1,
-        "sha256": "c2ded9afe4647c2b05aceb9d30260100369cbba22f3d00e467a634546da3f610",
-        "version": "2026.04.27"
-      },
-      "sourceURL": "https://browse.library.kiwix.org/content/wikibooks_en_all_maxi_2026-04",
-      "storageKind": "zim",
-      "summary": "The open-content textbooks collection Official Kiwix ZIM archive stored for offline knowledge use.",
-      "symbolName": "books.vertical.fill",
-      "title": "Wikibooks (English) — With media"
+      "title": "Wikibooks (English)"
     },
     {
       "attribution": "Wikipedia; packaged by openZIM and distributed by Kiwix",
@@ -138,42 +103,7 @@
       "storageKind": "zim",
       "summary": "The free encyclopedia Official Kiwix ZIM archive stored for offline knowledge use.",
       "symbolName": "books.vertical.fill",
-      "title": "Wikipedia (English) — No pictures"
-    },
-    {
-      "attribution": "Wikipedia; packaged by openZIM and distributed by Kiwix",
-      "bundled": false,
-      "category": "encyclopedia",
-      "externalArchive": {
-        "catalogURL": "https://library.kiwix.org/",
-        "flavor": "maxi",
-        "language": "eng",
-        "metadataURL": "https://lb.download.kiwix.org/zim/wikipedia/wikipedia_en_all_maxi_2026-02.zim.meta4",
-        "project": "wikipedia",
-        "provider": "Kiwix/openZIM",
-        "upstreamID": "53a8f711-f7f9-ec23-08fc-38fcf579ba32",
-        "upstreamUpdatedAt": "2026-02-15T00:00:00Z"
-      },
-      "id": "kiwix-wikipedia-en-all-maxi",
-      "license": "Upstream Wikimedia content and media licenses; see archive metadata",
-      "recordCountEstimate": 18982214,
-      "release": {
-        "compression": "none",
-        "downloadBytes": 123980647016,
-        "downloadURL": "https://download.kiwix.org/zim/wikipedia/wikipedia_en_all_maxi_2026-02.zim",
-        "installedBytes": 123980647016,
-        "parts": [],
-        "publishedAt": "2026-02-15T00:00:00Z",
-        "releaseNotes": "Kiwix upstream archive updated 2026-02-15.",
-        "schemaVersion": 1,
-        "sha256": "bf0853bf94ed8c53524e5ee67288bc4898819bc9d496af2b3f852b6588abdd27",
-        "version": "2026.02.15"
-      },
-      "sourceURL": "https://browse.library.kiwix.org/content/wikipedia_en_all_maxi_2026-02",
-      "storageKind": "zim",
-      "summary": "The free encyclopedia Official Kiwix ZIM archive stored for offline knowledge use.",
-      "symbolName": "books.vertical.fill",
-      "title": "Wikipedia (English) — With media"
+      "title": "Wikipedia (English)"
     },
     {
       "attribution": "Wikiquote; packaged by openZIM and distributed by Kiwix",
@@ -208,42 +138,7 @@
       "storageKind": "zim",
       "summary": "An Offline Version of Wikiquote in English Language Official Kiwix ZIM archive stored for offline knowledge use.",
       "symbolName": "books.vertical.fill",
-      "title": "Wikiquote (English) — No pictures"
-    },
-    {
-      "attribution": "Wikiquote; packaged by openZIM and distributed by Kiwix",
-      "bundled": false,
-      "category": "encyclopedia",
-      "externalArchive": {
-        "catalogURL": "https://library.kiwix.org/",
-        "flavor": "maxi",
-        "language": "eng",
-        "metadataURL": "https://lb.download.kiwix.org/zim/wikiquote/wikiquote_en_all_maxi_2026-07.zim.meta4",
-        "project": "wikiquote",
-        "provider": "Kiwix/openZIM",
-        "upstreamID": "5f80cade-1376-4771-fe34-0d203feb97b9",
-        "upstreamUpdatedAt": "2026-07-16T00:00:00Z"
-      },
-      "id": "kiwix-wikiquote-en-all-maxi",
-      "license": "Upstream Wikimedia content and media licenses; see archive metadata",
-      "recordCountEstimate": 102400,
-      "release": {
-        "compression": "none",
-        "downloadBytes": 971764148,
-        "downloadURL": "https://download.kiwix.org/zim/wikiquote/wikiquote_en_all_maxi_2026-07.zim",
-        "installedBytes": 971764148,
-        "parts": [],
-        "publishedAt": "2026-07-16T00:00:00Z",
-        "releaseNotes": "Kiwix upstream archive updated 2026-07-16.",
-        "schemaVersion": 1,
-        "sha256": "e98fbd58ef027bf67a17b91f9c534976d8c7e00d4b786b7323116d51337790b8",
-        "version": "2026.07.16"
-      },
-      "sourceURL": "https://browse.library.kiwix.org/content/wikiquote_en_all_maxi_2026-07",
-      "storageKind": "zim",
-      "summary": "An Offline Version of Wikiquote in English Language Official Kiwix ZIM archive stored for offline knowledge use.",
-      "symbolName": "books.vertical.fill",
-      "title": "Wikiquote (English) — With media"
+      "title": "Wikiquote (English)"
     },
     {
       "attribution": "Wikisource; packaged by openZIM and distributed by Kiwix",
@@ -278,42 +173,7 @@
       "storageKind": "zim",
       "summary": "Wikisource is an library of public domain texts Official Kiwix ZIM archive stored for offline knowledge use.",
       "symbolName": "books.vertical.fill",
-      "title": "Wikisource (English) — No pictures"
-    },
-    {
-      "attribution": "Wikisource; packaged by openZIM and distributed by Kiwix",
-      "bundled": false,
-      "category": "encyclopedia",
-      "externalArchive": {
-        "catalogURL": "https://library.kiwix.org/",
-        "flavor": "maxi",
-        "language": "eng",
-        "metadataURL": "https://lb.download.kiwix.org/zim/wikisource/wikisource_en_all_maxi_2026-05.zim.meta4",
-        "project": "wikisource",
-        "provider": "Kiwix/openZIM",
-        "upstreamID": "950dfcf0-873e-1938-2bc0-ddfe4bea7674",
-        "upstreamUpdatedAt": "2026-05-22T00:00:00Z"
-      },
-      "id": "kiwix-wikisource-en-all-maxi",
-      "license": "Upstream Wikimedia content and media licenses; see archive metadata",
-      "recordCountEstimate": 4575253,
-      "release": {
-        "compression": "none",
-        "downloadBytes": 19663666206,
-        "downloadURL": "https://download.kiwix.org/zim/wikisource/wikisource_en_all_maxi_2026-05.zim",
-        "installedBytes": 19663666206,
-        "parts": [],
-        "publishedAt": "2026-05-22T00:00:00Z",
-        "releaseNotes": "Kiwix upstream archive updated 2026-05-22.",
-        "schemaVersion": 1,
-        "sha256": "380e1bf94f26c69717ddfb2dea1accc9cb6e7184d03a51bf6f8a990e256571fe",
-        "version": "2026.05.22"
-      },
-      "sourceURL": "https://browse.library.kiwix.org/content/wikisource_en_all_maxi_2026-05",
-      "storageKind": "zim",
-      "summary": "Wikisource is an library of public domain texts Official Kiwix ZIM archive stored for offline knowledge use.",
-      "symbolName": "books.vertical.fill",
-      "title": "Wikisource (English) — With media"
+      "title": "Wikisource (English)"
     },
     {
       "attribution": "Wikiversity; packaged by openZIM and distributed by Kiwix",
@@ -348,42 +208,7 @@
       "storageKind": "zim",
       "summary": "Wikiversity offers tutorials and other materials for the fostering of learning. Official Kiwix ZIM archive stored for offline knowledge use.",
       "symbolName": "books.vertical.fill",
-      "title": "Wikiversity (English) — No pictures"
-    },
-    {
-      "attribution": "Wikiversity; packaged by openZIM and distributed by Kiwix",
-      "bundled": false,
-      "category": "encyclopedia",
-      "externalArchive": {
-        "catalogURL": "https://library.kiwix.org/",
-        "flavor": "maxi",
-        "language": "eng",
-        "metadataURL": "https://lb.download.kiwix.org/zim/wikiversity/wikiversity_en_all_maxi_2026-05.zim.meta4",
-        "project": "wikiversity",
-        "provider": "Kiwix/openZIM",
-        "upstreamID": "2e5a93cf-ff41-be89-e825-805429337f58",
-        "upstreamUpdatedAt": "2026-05-06T00:00:00Z"
-      },
-      "id": "kiwix-wikiversity-en-all-maxi",
-      "license": "Upstream Wikimedia content and media licenses; see archive metadata",
-      "recordCountEstimate": 69848,
-      "release": {
-        "compression": "none",
-        "downloadBytes": 2459209431,
-        "downloadURL": "https://download.kiwix.org/zim/wikiversity/wikiversity_en_all_maxi_2026-05.zim",
-        "installedBytes": 2459209431,
-        "parts": [],
-        "publishedAt": "2026-05-06T00:00:00Z",
-        "releaseNotes": "Kiwix upstream archive updated 2026-05-06.",
-        "schemaVersion": 1,
-        "sha256": "f2667509251c1784270c8c8dd0cd8a79d438a5c4940a6cc70653a6f77318a421",
-        "version": "2026.05.06"
-      },
-      "sourceURL": "https://browse.library.kiwix.org/content/wikiversity_en_all_maxi_2026-05",
-      "storageKind": "zim",
-      "summary": "Wikiversity offers tutorials and other materials for the fostering of learning. Official Kiwix ZIM archive stored for offline knowledge use.",
-      "symbolName": "books.vertical.fill",
-      "title": "Wikiversity (English) — With media"
+      "title": "Wikiversity (English)"
     },
     {
       "attribution": "Wikivoyage; packaged by openZIM and distributed by Kiwix",
@@ -418,42 +243,7 @@
       "storageKind": "zim",
       "summary": "The collaborative travel guide Official Kiwix ZIM archive stored for offline knowledge use.",
       "symbolName": "books.vertical.fill",
-      "title": "Wikivoyage (English) — No pictures"
-    },
-    {
-      "attribution": "Wikivoyage; packaged by openZIM and distributed by Kiwix",
-      "bundled": false,
-      "category": "encyclopedia",
-      "externalArchive": {
-        "catalogURL": "https://library.kiwix.org/",
-        "flavor": "maxi",
-        "language": "eng",
-        "metadataURL": "https://lb.download.kiwix.org/zim/wikivoyage/wikivoyage_en_all_maxi_2026-06.zim.meta4",
-        "project": "wikivoyage",
-        "provider": "Kiwix/openZIM",
-        "upstreamID": "9469a5c7-4f32-32a1-d6c4-715d488acbf9",
-        "upstreamUpdatedAt": "2026-06-15T00:00:00Z"
-      },
-      "id": "kiwix-wikivoyage-en-all-maxi",
-      "license": "Upstream Wikimedia content and media licenses; see archive metadata",
-      "recordCountEstimate": 67558,
-      "release": {
-        "compression": "none",
-        "downloadBytes": 1139962802,
-        "downloadURL": "https://download.kiwix.org/zim/wikivoyage/wikivoyage_en_all_maxi_2026-06.zim",
-        "installedBytes": 1139962802,
-        "parts": [],
-        "publishedAt": "2026-06-15T00:00:00Z",
-        "releaseNotes": "Kiwix upstream archive updated 2026-06-15.",
-        "schemaVersion": 1,
-        "sha256": "3e409218d19b25285b894f5925fe8b52181d02d2ff9d4c0c7a93ee8a03443591",
-        "version": "2026.06.15"
-      },
-      "sourceURL": "https://browse.library.kiwix.org/content/wikivoyage_en_all_maxi_2026-06",
-      "storageKind": "zim",
-      "summary": "The collaborative travel guide Official Kiwix ZIM archive stored for offline knowledge use.",
-      "symbolName": "books.vertical.fill",
-      "title": "Wikivoyage (English) — With media"
+      "title": "Wikivoyage (English)"
     },
     {
       "attribution": "Wiktionary; packaged by openZIM and distributed by Kiwix",
@@ -488,7 +278,7 @@
       "storageKind": "zim",
       "summary": "The largest dictionary on the web. Official Kiwix ZIM archive stored for offline knowledge use.",
       "symbolName": "books.vertical.fill",
-      "title": "Wiktionary (English) — No pictures"
+      "title": "Wiktionary (English)"
     }
   ]
 }
