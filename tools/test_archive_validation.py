@@ -9,6 +9,20 @@ spec.loader.exec_module(validator)
 
 
 class ArchiveValidationTests(unittest.TestCase):
+    def test_retained_release_assets_require_matching_size_and_digest(self):
+        part = {'downloadURL': 'https://github.com/AM-Guru/SybilSight-DataSources/releases/download/data-test/test.gz',
+                'downloadBytes': 100, 'sha256': 'a' * 64}
+        assets = {'data-test': [{'name': 'test.gz', 'size': 100, 'digest': 'sha256:' + 'a' * 64}]}
+        with patch.object(validator, 'RELEASE_ASSETS', assets):
+            self.assertTrue(validator.published_asset_matches(part))
+            part['downloadBytes'] = 101
+            self.assertFalse(validator.published_asset_matches(part))
+            part['downloadBytes'] = 100
+            part['sha256'] = 'b' * 64
+            self.assertFalse(validator.published_asset_matches(part))
+            part['downloadURL'] = part['downloadURL'].replace('github.com', 'github.com.evil.invalid')
+            self.assertFalse(validator.published_asset_matches(part))
+
     def test_pointer_validation_keeps_contract_checks(self):
         entry = {
             'id': 'test', 'title': 'Test', 'summary': 'Test', 'category': 'encyclopedia',

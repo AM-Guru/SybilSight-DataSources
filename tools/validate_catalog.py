@@ -13,13 +13,43 @@ import argparse
 import json
 import sqlite3
 import sys
+import re
 from pathlib import Path
+from urllib.parse import urlparse, unquote, quote
+from urllib.request import Request, urlopen
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 MANIFEST = REPO_ROOT / "manifest" / "catalog.json"
 DIST = REPO_ROOT / "dist"
 BUILD = REPO_ROOT / "build"
 MANIFEST_ONLY = False
+RELEASE_ASSETS: dict[str, list[dict]] = {}
+
+
+def published_asset_matches(part: dict) -> bool:
+    """Verify retained large assets using GitHub's recorded upload digest.
+
+    Fresh checkouts omit release-only blobs. Do not require downloading several
+    gigabytes just to republish unrelated datasets, or trust a URL alone.
+    """
+    url = urlparse(str(part.get('downloadURL', '')))
+    match = re.fullmatch(r'/AM-Guru/SybilSight-DataSources/releases/download/([^/]+)/([^/]+)', url.path)
+    if url.scheme != 'https' or url.hostname != 'github.com' or not match:
+        return False
+    tag, name = map(unquote, match.groups())
+    try:
+        if tag not in RELEASE_ASSETS:
+            request = Request('https://api.github.com/repos/AM-Guru/SybilSight-DataSources/releases/tags/' + quote(tag, safe=''),
+                              headers={'Accept': 'application/vnd.github+json', 'User-Agent': 'SybilSight-DataSources-validator'})
+            with urlopen(request, timeout=30) as response:
+                RELEASE_ASSETS[tag] = json.load(response).get('assets', [])
+        return any(asset.get('name') == name
+                   and asset.get('size') == part.get('downloadBytes')
+                   and asset.get('digest') == 'sha256:' + str(part.get('sha256', '')).lower()
+                   for asset in RELEASE_ASSETS[tag])
+    except Exception as error:
+        notes.append(f'Could not verify published asset {name}: {error}')
+        return False
 
 REQUIRED_DATASET_FIELDS = [
     "id", "title", "summary", "category", "attribution", "license",
@@ -169,6 +199,9 @@ def check_dataset(entry: dict) -> None:
 
         artefact = DIST / part["fileName"]
         if not artefact.exists():
+            if published_asset_matches(part):
+                notes.append(f'{dataset_id}: {part["fileName"]} size and SHA-256 verified against GitHub release metadata')
+                continue
             fail(f"{dataset_id}: {artefact.relative_to(REPO_ROOT)} is not in dist/")
             continue
         if artefact.stat().st_size != size:
