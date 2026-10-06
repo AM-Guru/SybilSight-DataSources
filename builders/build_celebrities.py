@@ -31,11 +31,15 @@ TARGET_COUNT = 50_000
 # target size while excluding the long tail of locally-notable officials.
 MIN_SITELINKS = 12
 
+# Cast explicitly: QLever's optimized direct sitelinks range filter can return
+# zero bindings despite populated human records. The integer expression works
+# on both QLever and WDQS and retains the same notability threshold.
+
 CORE_QUERY = """
 SELECT ?person ?personLabel ?sitelinks ?birth ?death ?description WHERE {
   ?person wdt:P31 wd:Q5 .
   ?person wikibase:sitelinks ?sitelinks .
-  FILTER(?sitelinks >= %d)
+  FILTER(xsd:integer(?sitelinks) >= %d)
   ?person wdt:P569 ?birth .
   OPTIONAL { ?person wdt:P570 ?death }
   ?person rdfs:label ?personLabel . FILTER(LANG(?personLabel) = "en")
@@ -63,7 +67,7 @@ ATTRIBUTE_TEMPLATE = """
 SELECT ?person ?valueLabel WHERE {
   ?person wdt:P31 wd:Q5 .
   ?person wikibase:sitelinks ?sitelinks .
-  FILTER(?sitelinks >= %d)
+  FILTER(xsd:integer(?sitelinks) >= %d)
   ?person wdt:%s ?value .
   ?value rdfs:label ?valueLabel . FILTER(LANG(?valueLabel) = "en")
 }
@@ -73,7 +77,7 @@ HEIGHT_QUERY = """
 SELECT ?person ?height WHERE {
   ?person wdt:P31 wd:Q5 .
   ?person wikibase:sitelinks ?sitelinks .
-  FILTER(?sitelinks >= %d)
+  FILTER(xsd:integer(?sitelinks) >= %d)
   ?person wdt:P2048 ?height .
 }
 """ % MIN_SITELINKS

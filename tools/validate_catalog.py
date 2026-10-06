@@ -9,6 +9,7 @@ which is exactly the failure this catches at the point it is introduced.
 from __future__ import annotations
 
 import hashlib
+import argparse
 import json
 import sqlite3
 import sys
@@ -18,6 +19,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 MANIFEST = REPO_ROOT / "manifest" / "catalog.json"
 DIST = REPO_ROOT / "dist"
 BUILD = REPO_ROOT / "build"
+MANIFEST_ONLY = False
 
 REQUIRED_DATASET_FIELDS = [
     "id", "title", "summary", "category", "attribution", "license",
@@ -162,7 +164,7 @@ def check_dataset(entry: dict) -> None:
             )
         total += size
 
-        if storage == "zim":
+        if storage == "zim" or MANIFEST_ONLY:
             continue
 
         artefact = DIST / part["fileName"]
@@ -259,10 +261,14 @@ def check_one_container(dataset_id: str, container: Path) -> None:
 
 
 def main() -> int:
+    global MANIFEST_ONLY
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--manifest-only', action='store_true', help='Validate descriptor contracts without checking local dataset bytes or SQLite containers (for pointer-only updates).')
+    MANIFEST_ONLY = parser.parse_args().manifest_only
     document = check_manifest()
     for entry in document.get("datasets", []):
         check_dataset(entry)
-        if entry.get("id") and entry.get("storageKind", "sqlite") == "sqlite":
+        if not MANIFEST_ONLY and entry.get("id") and entry.get("storageKind", "sqlite") == "sqlite":
             check_container(entry["id"])
 
     for note in notes:

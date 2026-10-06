@@ -1,0 +1,42 @@
+name: Refresh Kiwix archive pointers
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 6 * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'tools/sync_kiwix_archives.py'
+      - 'manifest/kiwix-selection.json'
+      - '.github/workflows/kiwix-sync.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: reference-data-publication
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Refresh official URLs and SHA-256 metadata
+        run: python3 tools/sync_kiwix_archives.py
+      - name: Validate pointer manifest
+        run: |
+          python3 -m unittest discover -s tools -p 'test_*.py'
+          python3 tools/validate_catalog.py --manifest-only
+      - name: Publish refreshed pointers
+        run: |
+          git config user.name 'sybilsight-data-bot'
+          git config user.email 'i@am.guru'
+          git add manifest/kiwix-archives.json manifest/catalog.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Refresh official Kiwix archive URLs and checksums'
+          git push origin HEAD:main

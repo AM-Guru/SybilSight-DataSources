@@ -1,5 +1,12 @@
 name: Rebuild and publish datasets
 
+permissions:
+  contents: write
+
+concurrency:
+  group: reference-data-publication
+  cancel-in-progress: false
+
 # Manual by default. A dataset rebuild pulls multi-gigabyte upstream dumps and
 # rewrites published artefacts, so it should be an intentional act rather than
 # something a push triggers by accident.
