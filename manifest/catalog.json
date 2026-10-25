@@ -289,28 +289,28 @@
         "catalogURL": "https://library.kiwix.org/",
         "flavor": "nopic",
         "language": "eng",
-        "metadataURL": "https://lb.download.kiwix.org/zim/wikibooks/wikibooks_en_all_nopic_2026-04.zim.meta4",
+        "metadataURL": "https://lb.download.kiwix.org/zim/wikibooks/wikibooks_en_all_nopic_2026-10.zim.meta4",
         "project": "wikibooks",
         "provider": "Kiwix/openZIM",
-        "upstreamID": "b3b62066-a9ef-2f6c-7ded-94245b7f4997",
-        "upstreamUpdatedAt": "2026-04-27T00:00:00Z"
+        "upstreamID": "6ee20aaa-df75-69d8-477a-cb27cbc4c589",
+        "upstreamUpdatedAt": "2026-10-25T00:00:00Z"
       },
       "id": "kiwix-wikibooks-en-all-nopic",
       "license": "Upstream Wikimedia content and media licenses; see archive metadata",
-      "recordCountEstimate": 118571,
+      "recordCountEstimate": 131297,
       "release": {
         "compression": "none",
-        "downloadBytes": 3507893616,
-        "downloadURL": "https://download.kiwix.org/zim/wikibooks/wikibooks_en_all_nopic_2026-04.zim",
-        "installedBytes": 3507893616,
+        "downloadBytes": 3544612812,
+        "downloadURL": "https://download.kiwix.org/zim/wikibooks/wikibooks_en_all_nopic_2026-10.zim",
+        "installedBytes": 3544612812,
         "parts": [],
-        "publishedAt": "2026-04-27T00:00:00Z",
-        "releaseNotes": "Kiwix upstream archive updated 2026-04-27.",
+        "publishedAt": "2026-10-25T00:00:00Z",
+        "releaseNotes": "Kiwix upstream archive updated 2026-10-25.",
         "schemaVersion": 1,
-        "sha256": "2f4a1dfbd07683377baef38fe76a31e194f41e8c57ba7dfb47a674d238e06b80",
-        "version": "2026.04.27"
+        "sha256": "bda3410005656daeb523c81774e151b750cd5a8828f081ded0848cd7fdccba7c",
+        "version": "2026.10.25"
       },
-      "sourceURL": "https://browse.library.kiwix.org/content/wikibooks_en_all_nopic_2026-04",
+      "sourceURL": "https://browse.library.kiwix.org/content/wikibooks_en_all_nopic_2026-10",
       "storageKind": "zim",
       "summary": "The open-content textbooks collection Official Kiwix ZIM archive stored for offline knowledge use.",
       "symbolName": "books.vertical.fill",
@@ -562,6 +562,6 @@
       "title": "Wiktionary (English)"
     }
   ],
-  "generatedAt": "2026-10-14T12:06:52Z",
+  "generatedAt": "2026-10-25T11:45:43Z",
   "manifestVersion": 1
 }
