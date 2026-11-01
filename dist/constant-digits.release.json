@@ -1,6 +1,6 @@
 {
   "datasetId": "constant-digits",
-  "version": "2026.08.07",
+  "version": "2026.11.01",
   "schemaVersion": 2,
   "compression": "gzip",
   "answersPatternDigits": 6,
@@ -10,11 +10,11 @@
       "fileName": "constant-digits.sqlite3.gz",
       "downloadBytes": 5892897,
       "installedBytes": 7077888,
-      "sha256": "969da6b1b87ee09aef38ef49c55d36679d440e602e22934e3e48aaef1a5fc0a5"
+      "sha256": "dc5576ae131982969fdd98e5df4e1d71e3555eed3c1d97f2ecbb68262331ef09"
     }
   ],
   "downloadBytes": 5892897,
   "installedBytes": 7077888,
-  "sha256": "969da6b1b87ee09aef38ef49c55d36679d440e602e22934e3e48aaef1a5fc0a5",
+  "sha256": "dc5576ae131982969fdd98e5df4e1d71e3555eed3c1d97f2ecbb68262331ef09",
   "fileName": "constant-digits.sqlite3.gz"
 }

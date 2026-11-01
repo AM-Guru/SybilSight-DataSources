@@ -1,10 +1,10 @@
 {
   "compression": "gzip",
   "datasetId": "birthday-almanac",
-  "downloadBytes": 35621,
+  "downloadBytes": 35637,
   "fileName": "birthday-almanac.sqlite3.gz",
   "installedBytes": 114688,
   "schemaVersion": 1,
-  "sha256": "72d49b0b76cd0fc65401d15a9860c7550f9445d2110b29b81b6065dadc5cae63",
-  "version": "2026.08.06"
+  "sha256": "a0fb3009003273c901a24c0bf5ffd3492ab81ac2e79f07cf1a04ec3f3cd98e21",
+  "version": "2026.11.01"
 }

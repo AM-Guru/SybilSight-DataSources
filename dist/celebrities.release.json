@@ -1,10 +1,10 @@
 {
   "compression": "gzip",
   "datasetId": "celebrities",
-  "downloadBytes": 5734425,
+  "downloadBytes": 5770135,
   "fileName": "celebrities.sqlite3.gz",
-  "installedBytes": 13213696,
+  "installedBytes": 13221888,
   "schemaVersion": 1,
-  "sha256": "c88a3086b232a8aa663b4cb728f5bcc0008f7d3ec786a53174ef00d9fd1af5cb",
-  "version": "2026.10.06"
+  "sha256": "9dc552ea2e557052b29680708e1a5a59bc5afc45704cad4bee1377440e5a53ca",
+  "version": "2026.11.01"
 }
